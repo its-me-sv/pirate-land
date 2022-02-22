@@ -10,16 +10,16 @@ const GamesRecord: React.FC<GamesRecordProps> = () => {
       <RecordContainer>
         <ColTitle>Games Record</ColTitle>
         <GamesHolder>
-          {[...Array(200)].map(() => (
+          {[...Array(84)].map(() => (
               <>
                 <RecordText>
                   <span>22 Feb, 2022 - 09:32</span>
                   <span>AX231BCDFE</span>
                 </RecordText>
+                <Hrzntl />
               </>
             ))
           }
-          <Hrzntl />
         </GamesHolder>
       </RecordContainer>
     );
