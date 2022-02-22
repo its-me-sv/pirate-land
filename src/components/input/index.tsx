@@ -7,14 +7,15 @@ interface InputProps {
     name: string;
     value: string;
     setValue: Dispatch<SetStateAction<string>>;
+    isPass?: boolean;
 }
 
-const Input: React.FC<InputProps> = ({label, name, value, setValue}) => {
+const Input: React.FC<InputProps> = ({label, name, value, setValue, isPass}) => {
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
     return (
         <InputContainer>
           <InputLabel>{label}</InputLabel>
-          <StyledInput type="text" name={name} value={value} onChange={handleChange} />
+          <StyledInput type={isPass ? "password": "text"} name={name} value={value} onChange={handleChange} />
         </InputContainer>
     );
 };

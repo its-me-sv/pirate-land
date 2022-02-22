@@ -32,7 +32,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
         <LoginContainer>
           <FormTitle>Login</FormTitle>
           <Input value={username} setValue={setUsername} label='Username' name='username' />
-          <Input value={password} setValue={setPassword} label='Password' name='password' />
+          <Input isPass value={password} setValue={setPassword} label='Password' name='password' />
           <Button onPress={onLogin} text='Login' />
         </LoginContainer>
     );
