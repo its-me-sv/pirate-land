@@ -21,6 +21,10 @@ export const RecordText = styled.div`
   opacity: 0.84;
   display: flex;
   gap: 2.1rem;
+  font-size: 1.4rem;
+  &:hover {
+    color: green;
+  }
 `;
 
 export const Hrzntl = styled.div`
