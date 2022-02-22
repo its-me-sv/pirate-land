@@ -9,7 +9,7 @@ const ButtonContainer = styled.div`
     font-family: 'PirateKids';
     cursor: pointer;
     padding: 0.4rem;
-    font-size: 3vh;
+    font-size: 1.4rem;
     padding-top: 1px;
     padding-bottom: 1px;
     text-align: center;

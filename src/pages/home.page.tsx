@@ -12,7 +12,7 @@ const HomeContainer = styled.div`
     justify-content: center;
 `;
 
-const Title = styled.span`
+export const Title = styled.span`
   font-family: 'PirateKids';
   font-size: 12vh;
   color: #e61d30;
