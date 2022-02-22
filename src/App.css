@@ -1,0 +1,68 @@
+.home-container {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+  font-family: 'PirateKids';
+  font-size: 12vh;
+  color: #e61d30;
+  -webkit-text-stroke-width: 2.8px;
+  -webkit-text-stroke-color: #354b7d;
+}
+
+.form-container {
+    display: flex;
+}
+
+.form-tile {
+    font-family: 'calibri';
+    font-size: 4.9vh;
+    opacity: 0.84;
+}
+
+.login-box, .register-box {
+    /* border: 3px solid red; */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-label {
+  font-family: 'bahnschrift';
+  font-size: 2.8vh;
+  opacity: 0.84;
+}
+
+input {
+    background-color: #e8a57b;
+    outline: none;
+    border: 2.1px solid #354b7d;
+    border-radius: 0.3rem;
+    padding: 3px;
+}
+
+input:focus {
+    border: 2.1px dashed #354b7d;
+}
+
+.cstm-btn {
+    font-family: 'PirateKids';
+    padding: 0.4rem;
+    font-size: 4.2vh;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: center;
+    background-color: #e61d30;
+    border-radius: 0.2rem;
+}
