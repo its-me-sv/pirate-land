@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'bahnschrift';
-  src: local('bahnschrift'), url(../assets/fonts/bahnschrift.ttf) format('truetype');
+  src: local('bahnschrift'), url(./assets/fonts/bahnschrift.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'calibri';
-  src: local('calibri'), url(../assets/fonts/calibri.ttf) format('truetype');
+  src: local('calibri'), url(./assets/fonts/calibri.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'PiratesBay';
-  src: local('PiratesBay'), url(../assets/fonts/PiratesBay.ttf) format('truetype');
+  src: local('PiratesBay'), url(./assets/fonts/PiratesBay.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'PirateKids';
-  src: local('PirateKids'), url(../assets/fonts/PirateKids.otf) format('opentype');
+  src: local('PirateKids'), url(./assets/fonts/PirateKids.otf) format('opentype');
 }
 
 body {
@@ -57,4 +57,53 @@ code {
 /* Handle on hover */
 *::-webkit-scrollbar-thumb:hover {
   opacity: 0;
+}
+
+.teams-container {
+  display: grid;
+  grid-template-columns: 1fr 0fr 1fr;
+  align-items: center;
+}
+
+.team-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vrtcl-ln {
+  border-left: 3px solid black;
+  border-radius: 2rem;
+  opacity: 0.7;
+  height: 91%;
+}
+
+.team-title {
+  font-family: calibri;
+  font-size: 2.4rem;
+}
+
+.players-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-img {
+  width: 70%;
+  height: 70%;
+}
+
+.player-name {
+  font-family: bahnschrift;
+  font-size: 1.4rem;
+  opacity: 0.7;
 }
