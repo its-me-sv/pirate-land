@@ -1,25 +1,41 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-import {RecordContainer, GamesHolder, RecordText, Hrzntl} from "./styles";
+import {RecordContainer, GamesHolder, EndBar} from "./styles";
 import {ColTitle} from '../rooms-form';
+
+import RecordItem from '../record-item';
+
+interface GameProp {
+  id: string;
+  time: string;
+}
+
+const record: GameProp = {
+  id: 'AX231BCDFE',
+  time: new Date().toISOString(),
+}
+
+const records: Array<GameProp> = [...Array(14)].map(() => record);
 
 interface GamesRecordProps {}
 
 const GamesRecord: React.FC<GamesRecordProps> = () => {
+    const [games, setGames] = useState<Array<GameProp>>([]);
+
+    const fetchData = () => setGames(prev => [...prev, ...records]);
+
+    useEffect(() => {
+      fetchData();
+    }, []);
+
     return (
       <RecordContainer>
         <ColTitle>Games Record</ColTitle>
         <GamesHolder>
-          {[...Array(84)].map(() => (
-              <>
-                <RecordText>
-                  <span>22 Feb, 2022 - 09:32</span>
-                  <span>AX231BCDFE</span>
-                </RecordText>
-                <Hrzntl />
-              </>
-            ))
-          }
+          {games.map((game, idx) => (
+            <RecordItem key={idx} {...game} />
+          ))}
+          <EndBar onMouseEnter={fetchData} />
         </GamesHolder>
       </RecordContainer>
     );

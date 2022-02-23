@@ -16,18 +16,6 @@ export const GamesHolder = styled.div`
   overflow-y: scroll;
 `;
 
-export const RecordText = styled.div`
-  font-family: bahnschrift;
-  opacity: 0.84;
-  display: flex;
-  gap: 2.1rem;
-  font-size: 1.4rem;
-  &:hover {
-    color: green;
-  }
-`;
-
-export const Hrzntl = styled.div`
-  border-top: 2px solid black;
-  opacity: 0.6;
+export const EndBar = styled.div`
+  height: 42px;
 `;
