@@ -29,6 +29,12 @@ const GameId = styled.span`
   opacity: 0.6;
 `;
 
+const TeamsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 0fr 1fr;
+  align-items: center;
+`;
+
 interface LobbyPageProps {}
 
 const LobbyPage: React.FC<LobbyPageProps> = () => {
@@ -37,7 +43,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
       <LobbyContainer>
         <TitleText>Pirate Land</TitleText>
         <GameId>{gameId}</GameId>
-        <div className="teams-container">
+        <TeamsContainer>
           <div className="team-container">
             <span className="team-title">Team 1</span>
             <div className="players-container">
@@ -83,7 +89,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
             </div>
             <Button text="Join Team 1" onPress={() => {}} />
           </div>
-        </div>
+        </TeamsContainer>
       </LobbyContainer>
     );
 };

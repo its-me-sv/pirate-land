@@ -59,12 +59,6 @@ code {
   opacity: 0;
 }
 
-.teams-container {
-  display: grid;
-  grid-template-columns: 1fr 0fr 1fr;
-  align-items: center;
-}
-
 .team-container {
   display: flex;
   flex-direction: column;
