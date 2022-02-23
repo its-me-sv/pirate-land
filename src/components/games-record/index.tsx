@@ -35,7 +35,9 @@ const GamesRecord: React.FC<GamesRecordProps> = () => {
           {games.map((game, idx) => (
             <RecordItem key={idx} {...game} />
           ))}
-          <EndBar onMouseEnter={fetchData} />
+          <EndBar onMouseEnter={fetchData}>
+            Hover here to fetch more
+          </EndBar>
         </GamesHolder>
       </RecordContainer>
     );

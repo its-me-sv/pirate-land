@@ -18,4 +18,8 @@ export const GamesHolder = styled.div`
 
 export const EndBar = styled.div`
   height: 42px;
+  text-align: center;
+  cursor: pointer;
+  padding: 7px;
+  align-self: center;
 `;
