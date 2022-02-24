@@ -5,6 +5,7 @@ import HomePage from './pages/home.page';
 import ProfilePage from './pages/profile.page';
 import LobbyPage from './pages/lobby.page';
 import ScoreboardPage from './pages/scoreboard.page';
+import IslandPage from './pages/island.page';
 
 interface AppProps {}
 
@@ -16,6 +17,7 @@ const App: React.FC<AppProps> = () => {
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/island/:gameId/lobby' element={<LobbyPage />} />
         <Route path='/island/:gameId/scoreboard' element={<ScoreboardPage />} />
+        <Route path='/island/:gameId/play' element={<IslandPage />} />
       </Routes>
     </HashRouter>
   );
