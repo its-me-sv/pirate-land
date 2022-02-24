@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
 
 import Team from '../components/team';
+import {LogoutSection} from './profile.page';
+import Button from '../components/button';
 
 const LobbyContainer = styled.div`
   display: flex;
@@ -54,6 +56,9 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
           <VrtclLn />
           <Team teamName="Team 2" variant={2} />
         </TeamsContainer>
+        <LogoutSection>
+          <Button text="Exit game" onPress={() => {}} />
+        </LogoutSection>
       </LobbyContainer>
     );
 };

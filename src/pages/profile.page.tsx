@@ -21,7 +21,7 @@ const ContentContainer = styled.div`
   gap: 3rem;
 `;
 
-const LogoutSection = styled.div`
+export const LogoutSection = styled.div`
   position: absolute;
   top: 2%;
   right: 2%;
