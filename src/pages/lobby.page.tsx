@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {useParams} from 'react-router-dom';
 
-import Button from '../components/button';
-import pirate1 from '../assets/pirates/face-1.png';
+import Team from '../components/team';
 
 const LobbyContainer = styled.div`
   display: flex;
@@ -35,6 +34,13 @@ const TeamsContainer = styled.div`
   align-items: center;
 `;
 
+const VrtclLn = styled.div`
+  border-left: 3px solid black;
+  border-radius: 2rem;
+  opacity: 0.7;
+  height: 91%;
+`;
+
 interface LobbyPageProps {}
 
 const LobbyPage: React.FC<LobbyPageProps> = () => {
@@ -44,51 +50,9 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
         <TitleText>Pirate Land</TitleText>
         <GameId>{gameId}</GameId>
         <TeamsContainer>
-          <div className="team-container">
-            <span className="team-title">Team 1</span>
-            <div className="players-container">
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-            </div>
-            <Button text="Join Team 1" onPress={() => {}} />
-          </div>
-          <div className="vrtcl-ln" />
-          <div className="team-container">
-            <span className="team-title">Team 1</span>
-            <div className="players-container">
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-              <div className="player-container">
-                <img alt="" className="player-img" src={pirate1} />
-                <span className="player-name">Suraj Vijay</span>
-              </div>
-            </div>
-            <Button text="Join Team 1" onPress={() => {}} />
-          </div>
+          <Team teamName="Team 1" variant={1} />
+          <VrtclLn />
+          <Team teamName="Team 2" variant={2} />
         </TeamsContainer>
       </LobbyContainer>
     );
