@@ -6,7 +6,7 @@ import pirate2 from '../../assets/pirates/face-2.png';
 import pirate3 from '../../assets/pirates/face-3.png';
 import pirate4 from '../../assets/pirates/face-4.png';
 
-const pirateMapper: {[key:string]: string} = {
+export const pirateMapper: {[key:string]: string} = {
     1: pirate1,
     2: pirate2,
     3: pirate3,

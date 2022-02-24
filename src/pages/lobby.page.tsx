@@ -6,7 +6,7 @@ import Team from '../components/team';
 import {LogoutSection} from './profile.page';
 import Button from '../components/button';
 
-const LobbyContainer = styled.div`
+export const LobbyContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -16,7 +16,7 @@ const LobbyContainer = styled.div`
   gap: 1rem;
 `;
 
-const TitleText = styled.span`
+export const TitleText = styled.span`
   font-family: "PirateKids";
   font-size: 10vh;
   color: #e61d30;
@@ -24,19 +24,19 @@ const TitleText = styled.span`
   -webkit-text-stroke-color: #354b7d;
 `;
 
-const GameId = styled.span`
+export const GameId = styled.span`
   font-family: bahnschrift;
   font-size: 2.1rem;
   opacity: 0.6;
 `;
 
-const TeamsContainer = styled.div`
+export const TeamsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 0fr 1fr;
   align-items: center;
 `;
 
-const VrtclLn = styled.div`
+export const VrtclLn = styled.div`
   border-left: 3px solid black;
   border-radius: 2rem;
   opacity: 0.7;

@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import Button from '../button';
 import Player from '../player';
 
-const TeamContainer = styled.div`
+export const TeamContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 `;
 
-const TeamTitle = styled.div<{ variant: number }>`
+export const TeamTitle = styled.div<{ variant: number }>`
   font-family: calibri;
   font-size: 2.4rem;
   color: #567ace;
