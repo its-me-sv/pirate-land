@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import ChatContainer from '../components/chat-container';
 import IslandHeader from '../components/island-header';
+import BlockLoader from '../components/block-loader';
 
 const IslandContainer = styled.div``;
 
@@ -22,10 +23,11 @@ const IslandPage: React.FC<IslandPageProps> = () => {
     const {gameId} = useParams();
     return (
       <IslandContainer>
+        <BlockLoader />
         <IslandHeader gameId={gameId} />
         <GameArea>
           <ChatContainer title="Team Chat" variant={1} />
-          <div className="board">Game Board</div>
+          <div className="board"></div>
           <ChatContainer title="World Chat" variant={2} />
         </GameArea>
       </IslandContainer>
