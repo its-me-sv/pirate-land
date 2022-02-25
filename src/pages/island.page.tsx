@@ -41,13 +41,17 @@ const BoardFooter = styled.div`
   height: 10vh;
 `;
 
-const ScoreBoard = styled.div`
+const ScoreBoard = styled.a.attrs({
+  target: "_blank",
+})`
   border: 2px dashed rgb(0, 0, 0, 0.5);
   border-radius: 3px;
   padding: 0.3rem 0.7rem;
   display: flex;
   justify-content: space-evenly;
   gap: 1rem;
+  cursor: pointer;
+  text-decoration: none;
 `;
 
 const VrtclLn = styled.span`
@@ -73,7 +77,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
             <LevelImg src={level1} />
             <BoardFooter>
               <TeamPlayers />
-              <ScoreBoard>
+              <ScoreBoard href={`/#/island/${gameId}/scoreboard`}>
                 <ScoreText variant={1}>12</ScoreText>
                 <VrtclLn />
                 <ScoreText variant={2}>12</ScoreText>
