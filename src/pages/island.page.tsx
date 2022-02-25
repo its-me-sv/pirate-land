@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import ChatContainer from '../components/chat-container';
 import IslandHeader from '../components/island-header';
+import TeamPlayers from '../components/team-players';
 
 import level1 from '../assets/lands/f1.png';
-import pirate1 from '../assets/pirates/face-1.png';
 
 const IslandContainer = styled.div``;
 
@@ -18,6 +18,48 @@ const GameArea = styled.div`
   height: 90vh;
 `;
 
+const BoardContainer = styled.div`
+  border: 3px solid black;
+  border-radius: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const LevelImg = styled.img.attrs({
+  alt: "",
+})`
+  height: 80vh;
+  width: 100%;
+  border-bottom: 2px solid black;
+`;
+
+const BoardFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+`;
+
+const ScoreBoard = styled.div`
+  border: 2px dashed rgb(0, 0, 0, 0.5);
+  border-radius: 3px;
+  padding: 0.3rem 0.7rem;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+`;
+
+const VrtclLn = styled.span`
+  border-left: 2px solid rgb(0, 0, 0, 0.8);
+`;
+
+const ScoreText = styled.span<{ variant: number }>`
+  font-family: PirateKids;
+  font-size: 2.1rem;
+  color: ${(props) => (props.variant === 1 ? `#2e66df` : `#fe0002`)};
+`;
+
 interface IslandPageProps {}
 
 const IslandPage: React.FC<IslandPageProps> = () => {
@@ -27,28 +69,18 @@ const IslandPage: React.FC<IslandPageProps> = () => {
         <IslandHeader gameId={gameId} />
         <GameArea>
           <ChatContainer title="Team Chat" variant={1} />
-          <div className="board">
-            <img className="level-img" alt="" src={level1} />
-            <div className="board-footer">
-              <div className="team-players">
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-              </div>
-              <div className="scr-brd">
-                <span className="scr-txt">12</span>
-                <span className="vrtcl-ln" />
-                <span className="scr-txt">12</span>
-              </div>
-              <div className="team-players">
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-                <img className="footer-player" alt="" src={pirate1} />
-              </div>
-            </div>
-          </div>
+          <BoardContainer>
+            <LevelImg src={level1} />
+            <BoardFooter>
+              <TeamPlayers />
+              <ScoreBoard>
+                <ScoreText variant={1}>12</ScoreText>
+                <VrtclLn />
+                <ScoreText variant={2}>12</ScoreText>
+              </ScoreBoard>
+              <TeamPlayers />
+            </BoardFooter>
+          </BoardContainer>
           <ChatContainer title="World Chat" variant={2} />
         </GameArea>
       </IslandContainer>
