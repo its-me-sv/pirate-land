@@ -1,21 +1,16 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
-import styled from 'styled-components';
 
 import {
-    LobbyContainer as ScoreboardContainer, 
-    TitleText, 
-    GameId as CaptionText, 
-    TeamsContainer,
-    VrtclLn,
-} from './lobby.page';
-import TeamScoreboard from '../components/team-for-scrbrd';
+  LobbyContainer as ScoreboardContainer, 
+  TitleText, 
+  GameId as CaptionText, 
+  TeamsContainer,
+  VrtclLn,
+} from '../lobby/styles';
+import TeamScoreboard from '../../components/team-for-scrbrd';
 
-const GameIdSection = styled.div`
-  position: absolute;
-  top: 1%;
-  left: 1%;
-`;
+import {GameIdSection} from './styles';
 
 interface ScoreBoardPageProps {}
 

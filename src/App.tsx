@@ -1,11 +1,11 @@
 import React from 'react';
 import {HashRouter, Route, Routes} from 'react-router-dom';
 
-import HomePage from './pages/home.page';
-import ProfilePage from './pages/profile.page';
-import LobbyPage from './pages/lobby.page';
-import ScoreboardPage from './pages/scoreboard.page';
-import IslandPage from './pages/island.page';
+import HomePage from './pages/home/home.page';
+import ProfilePage from './pages/profile';
+import LobbyPage from './pages/lobby';
+import ScoreboardPage from './pages/scoreboard';
+import IslandPage from './pages/island';
 
 interface AppProps {}
 
