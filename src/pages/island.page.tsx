@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,7 +6,7 @@ import ChatContainer from '../components/chat-container';
 import IslandHeader from '../components/island-header';
 import TeamPlayers from '../components/team-players';
 
-import level1 from '../assets/lands/f1.png';
+import level1 from '../assets/lands/f3.png';
 
 const IslandContainer = styled.div``;
 
@@ -26,12 +26,33 @@ const BoardContainer = styled.div`
   justify-content: space-between;
 `;
 
+const Board = styled.div``;
+
+const Grid = styled.div`
+  position: absolute;
+  z-index: 500;
+  display: grid;
+  grid-template-rows: repeat(9, 1fr);
+  grid-template-columns: repeat(15, 1fr);
+  gap: 1px;
+`;
+
+const Box = styled.div`
+  background-color: rgba(0, 0, 0, 0.42);
+  width: 3.67rem;
+  height: 3.67rem;
+  &:hover {
+    background-color: transparent;
+  }
+`;
+
 const LevelImg = styled.img.attrs({
   alt: "",
 })`
   height: 80vh;
   width: 100%;
   border-bottom: 2px solid black;
+  display: block;
 `;
 
 const BoardFooter = styled.div`
@@ -68,13 +89,28 @@ interface IslandPageProps {}
 
 const IslandPage: React.FC<IslandPageProps> = () => {
     const {gameId} = useParams();
+    const imageRef = useRef<HTMLImageElement|null>(null);
+    const imageClicked = (event: React.MouseEvent<HTMLImageElement>) => {
+      if (!imageRef.current) return;
+      const {offsetLeft, offsetTop, offsetHeight, offsetWidth, clientWidth, clientHeight} = imageRef.current;
+      const {pageX, pageY} = event;
+      const x = pageX - offsetLeft;
+      const y = pageY - offsetTop;
+      console.log(clientWidth, clientHeight);
+      // window.alert(`width: ${offsetWidth} height: ${offsetHeight}`);
+    }
     return (
       <IslandContainer>
         <IslandHeader gameId={gameId} />
         <GameArea>
           <ChatContainer title="Team Chat" variant={1} />
           <BoardContainer>
-            <LevelImg src={level1} />
+            <Board>
+              <Grid>
+                {[...Array(135)].map((_, idx) => (<Box key={idx} />))}
+              </Grid>
+              <LevelImg ref={imageRef} onClick={imageClicked} src={level1} />
+            </Board>
             <BoardFooter>
               <TeamPlayers />
               <ScoreBoard href={`/#/island/${gameId}/scoreboard`}>
