@@ -9,13 +9,13 @@ import {
   IslandContainer,
   GameArea,
   BoardContainer,
-  Grid,
-  Box,
   BoardFooter,
   ScoreBoard,
   VrtclLn,
   ScoreText,
 } from './styles';
+
+import GameGrid from '../../components/game-grid';
 
 interface IslandPageProps {}
 
@@ -27,9 +27,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
         <GameArea>
           <ChatContainer title="Team Chat" variant={1} />
           <BoardContainer>
-            <Grid>
-              {[...Array(135)].map((_, idx) => (<Box key={idx} />))}
-            </Grid>
+            <GameGrid />
             <BoardFooter>
               <TeamPlayers />
               <ScoreBoard href={`/#/island/${gameId}/scoreboard`}>

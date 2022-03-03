@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import level1 from "../../assets/lands/f3.png";
-
 export const IslandContainer = styled.div``;
 
 export const GameArea = styled.div`
@@ -18,26 +16,6 @@ export const BoardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-export const Grid = styled.div`
-  height: 80vh;
-  background-image: url(${level1});
-  background-size: cover;
-  z-index: 500;
-  display: grid;
-  grid-template-rows: repeat(9, 1fr);
-  grid-template-columns: repeat(15, 1fr);
-  border-bottom: 2px solid black;
-  gap: 1px;
-`;
-
-export const Box = styled.div`
-  background-color: rgba(0, 0, 0, 0.36);
-  cursor: pointer;
-  &:hover {
-    background-color: transparent;
-  }
 `;
 
 export const BoardFooter = styled.div`
