@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import LoginForm from '../../components/login-form';
 import RegisterForm from '../../components/register-form';
@@ -10,10 +11,13 @@ import {useUserContext} from '../../contexts/user.context';
 interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
-    const {loading} = useUserContext();
+    const navigate = useNavigate();
+    const {loading, id} = useUserContext();
+
     useEffect(() => {
-        console.log("loading changed");
-    }, [loading]);
+        if (id.length) navigate('./profile');
+    }, [id, navigate]);
+
     return (
         <HomeContainer>
             {loading && <BlockLoader />}

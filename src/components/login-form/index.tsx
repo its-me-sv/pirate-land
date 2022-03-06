@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Input from '../input';
 import Button from '../button';
+
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const LoginContainer = styled.div`
   padding: 1rem;
@@ -25,7 +29,8 @@ const LoginForm: React.FC<LoginFormProps> = () => {
     const [password, setPassword] = useState<string>('');
     
     const onLogin = () => {
-      window.alert(JSON.stringify({username, password}));
+      if (!username.length || !password.length)
+        return window.alert('Fields empty');
     };
     
     return (
