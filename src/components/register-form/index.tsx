@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Input from '../input';
 import Button from '../button';
+
+// contexts
+import {useAPIContext} from '../../contexts/api.context';
 
 const RegisterContainer = styled.div`
   padding: 1rem;
@@ -21,12 +25,22 @@ const FormTitle = styled.span`
 interface LoginFormProps {}
 
 const RegisterForm: React.FC<LoginFormProps> = () => {
+    const {REST_API} = useAPIContext();
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     
     const onRegister = () => {
-      window.alert(JSON.stringify({name, username, password}));
+      axios.post(`${REST_API}/users/create`, {name, username, password})
+      .then(() => {
+        window.alert("Account has been created successfully");
+        setName("");
+        setUsername("");
+        setPassword("");
+      })
+      .catch(err => {
+        window.alert(JSON.stringify(err.response.data));
+      });
     };
 
     return (
