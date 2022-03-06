@@ -25,12 +25,25 @@ const FormTitle = styled.span`
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = () => {
+    const {REST_API} = useAPIContext();
+    const {setLoading, setId, setToken} = useUserContext();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     
     const onLogin = () => {
       if (!username.length || !password.length)
         return window.alert('Fields empty');
+      setLoading!(true);
+      axios.post(`${REST_API}/auth/login`, {username, password})
+      .then(({data}) => {
+        setId!(data.id as string);
+        setToken!(data.token as string);
+        setLoading!(false);
+      })
+      .catch((err) => {
+        window.alert(JSON.stringify(err.response.data));
+        setLoading!(false);
+      });
     };
     
     return (
