@@ -7,6 +7,7 @@ import Button from '../button';
 
 // contexts
 import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const RegisterContainer = styled.div`
   padding: 1rem;
@@ -24,23 +25,33 @@ const FormTitle = styled.span`
 
 interface LoginFormProps {}
 
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 3000));
+
 const RegisterForm: React.FC<LoginFormProps> = () => {
     const {REST_API} = useAPIContext();
+    const {setLoading} = useUserContext();
     const [name, setName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     
-    const onRegister = () => {
-      axios.post(`${REST_API}/users/create`, {name, username, password})
-      .then(() => {
-        window.alert("Account has been created successfully");
-        setName("");
-        setUsername("");
-        setPassword("");
-      })
-      .catch(err => {
-        window.alert(JSON.stringify(err.response.data));
-      });
+    const onRegister = async () => {
+      if (!name.length || !username.length || !password.length)
+        return window.alert("Filed is empty");
+      setLoading!(true);
+      await sleep();
+      axios
+        .post(`${REST_API}/users/create`, { name, username, password })
+        .then(() => {
+          window.alert("Account has been created successfully");
+          setName("");
+          setUsername("");
+          setPassword("");
+          setLoading!(false);
+        })
+        .catch((err) => {
+          window.alert(JSON.stringify(err.response.data));
+          setLoading!(false);
+        });
     };
 
     return (

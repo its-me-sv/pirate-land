@@ -10,24 +10,27 @@ import IslandPage from './pages/island';
 
 // providers
 import {APIContextProvider} from './contexts/api.context';
+import {UserContextProvider} from './contexts/user.context';
 
 interface AppProps {}
 
 const App: React.FC<AppProps> = () => {
   return (
     <APIContextProvider>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/island/:gameId/lobby" element={<LobbyPage />} />
-          <Route
-            path="/island/:gameId/scoreboard"
-            element={<ScoreboardPage />}
-          />
-          <Route path="/island/:gameId/play" element={<IslandPage />} />
-        </Routes>
-      </HashRouter>
+      <UserContextProvider>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/island/:gameId/lobby" element={<LobbyPage />} />
+            <Route
+              path="/island/:gameId/scoreboard"
+              element={<ScoreboardPage />}
+            />
+            <Route path="/island/:gameId/play" element={<IslandPage />} />
+          </Routes>
+        </HashRouter>
+      </UserContextProvider>
     </APIContextProvider>
   );
 }
