@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
+import {io} from 'socket.io-client';
 
 import {Title} from '../home/styles';
 import Button from '../../components/button';
@@ -10,6 +11,7 @@ import BlockLoader from '../../components/block-loader';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 import {
   ProfileContainer,
@@ -20,8 +22,13 @@ import {
 interface ProfilePageProps {}
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
-    const {REST_API} = useAPIContext();
-    const {token, setId, setToken, setLoading, loading} = useUserContext();
+    const {REST_API, SOCKET} = useAPIContext();
+    const {setSocket, socket} = useSocketContext();
+    const {token, setId, setToken, setLoading, loading, id} = useUserContext();
+
+    useEffect(() => {
+      setSocket!(io(SOCKET, {query: {userId: id}}));
+    }, []);
     
     const logoutUser = () => {
       setLoading!(true);
@@ -34,6 +41,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
         setId!('');
         setToken!('');
         setLoading!(false);
+        socket?.close();
       })
       .catch(() => setLoading!(false));
     };
