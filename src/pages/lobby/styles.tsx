@@ -20,7 +20,7 @@ export const TitleText = styled.span`
 
 export const GameId = styled.span`
   font-family: bahnschrift;
-  font-size: 2.1rem;
+  font-size: 1.4rem;
   opacity: 0.6;
 `;
 

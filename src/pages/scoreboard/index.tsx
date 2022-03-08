@@ -1,5 +1,6 @@
-import React from 'react';
-import {useParams} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {useParams, useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 import {
   LobbyContainer as ScoreboardContainer, 
@@ -12,10 +13,32 @@ import TeamScoreboard from '../../components/team-for-scrbrd';
 
 import {GameIdSection} from './styles';
 
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
+
 interface ScoreBoardPageProps {}
 
 const ScoreboardPage: React.FC<ScoreBoardPageProps> = () => {
     const {gameId} = useParams();
+    const {REST_API} = useAPIContext();
+    const {token, setLoading} = useUserContext();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      setLoading!(true);
+      axios.post(`${REST_API}/users/check_game`, {gameId}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({data}) => {
+        setLoading!(false);
+        const {canShow} = data;
+        if (!canShow) navigate('../profile', {replace: true});
+      })
+      .catch(() => setLoading!(false));
+    }, []);
+
     return (
       <ScoreboardContainer>
         <GameIdSection>
