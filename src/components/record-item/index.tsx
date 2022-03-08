@@ -9,7 +9,7 @@ export const RecordText = styled.div`
   opacity: 0.84;
   display: flex;
   gap: 2.1rem;
-  font-size: 1.4rem;
+  font-size: 0.8rem;
   &:hover {
     color: green;
   }

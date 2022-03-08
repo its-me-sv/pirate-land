@@ -5,15 +5,17 @@ import {ColTitle} from '../rooms-form';
 
 import RecordItem from '../record-item';
 
+import {getDateObj} from '../../utils/timeuuid-to-date';
+
 interface GameProp {
   id: string;
   time: string;
 }
 
 const record: GameProp = {
-  id: 'AX231BCDFE',
-  time: new Date().toISOString(),
-}
+  id: "69c3d6d0-9eee-11ec-b6fe-c1af4b01ba4a",
+  time: getDateObj("69c3d6d0-9eee-11ec-b6fe-c1af4b01ba4a").toISOString(),
+};
 
 const records: Array<GameProp> = [...Array(14)].map(() => record);
 
