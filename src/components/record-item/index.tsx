@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import prettyDate from '../../utils/pretty-date';
+import {getDateObj} from "../../utils/timeuuid-to-date";
 
 export const RecordText = styled.div`
   font-family: bahnschrift;
@@ -21,15 +22,18 @@ export const Hrzntl = styled.div`
 `;
 
 interface RecordItemProps {
-    time: string;
-    id: string;
+  id: string;
 };
 
-const RecordItem: React.FC<RecordItemProps> = ({time, id}) => {
+const RecordItem: React.FC<RecordItemProps> = ({id}) => {
     return (
       <>
         <RecordText>
-          <span>{prettyDate(time)}</span>
+          <span>
+            {prettyDate(
+              getDateObj(id).toISOString()
+            )}
+          </span>
           <span>{id}</span>
         </RecordText>
         <Hrzntl />
