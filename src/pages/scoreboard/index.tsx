@@ -10,6 +10,7 @@ import {
   VrtclLn,
 } from '../lobby/styles';
 import TeamScoreboard from '../../components/team-for-scrbrd';
+import BlockLoader from '../../components/block-loader';
 
 import {GameIdSection} from './styles';
 
@@ -21,7 +22,7 @@ interface ScoreBoardPageProps {}
 const ScoreboardPage: React.FC<ScoreBoardPageProps> = () => {
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
-    const {token, setLoading} = useUserContext();
+    const {token, setLoading, loading} = useUserContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,6 +42,7 @@ const ScoreboardPage: React.FC<ScoreBoardPageProps> = () => {
 
     return (
       <ScoreboardContainer>
+        {loading && <BlockLoader />}
         <GameIdSection>
           <CaptionText>{gameId}</CaptionText>
         </GameIdSection>

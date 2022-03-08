@@ -26,7 +26,7 @@ interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = () => {
     const {REST_API} = useAPIContext();
-    const {setLoading, setId, setToken} = useUserContext();
+    const {setLoading, setId, setToken, setCurrentGame} = useUserContext();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     
@@ -38,6 +38,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
       .then(({data}) => {
         setId!(data.id as string);
         setToken!(data.token as string);
+        setCurrentGame!(data.current_game as string);
         setLoading!(false);
       })
       .catch((err) => {

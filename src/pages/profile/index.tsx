@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import axios from 'axios';
 import {io} from 'socket.io-client';
+import {useNavigate} from 'react-router-dom';
 
 import {Title} from '../home/styles';
 import Button from '../../components/button';
@@ -22,13 +23,15 @@ import {
 interface ProfilePageProps {}
 
 const ProfilePage: React.FC<ProfilePageProps> = () => {
+    const navigate = useNavigate();
     const {REST_API, SOCKET} = useAPIContext();
     const {setSocket, socket} = useSocketContext();
-    const {token, setId, setToken, setLoading, loading, id} = useUserContext();
+    const {token, setId, setToken, setLoading, loading, id, currentGame} = useUserContext();
 
     useEffect(() => {
       setSocket!(io(SOCKET, {query: {userId: id}}));
-    }, []);
+      if (currentGame.length > 0) navigate(`../island/${currentGame}/play`);
+    }, [currentGame]);
     
     const logoutUser = () => {
       setLoading!(true);
