@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface BtnProps {
-    btnType: number;
+  btnType: number;
+  disabled?: boolean;
 }
 
 const ButtonContainer = styled.div`
@@ -22,17 +23,19 @@ const ButtonContainer = styled.div`
           color: #e61d30;
         `
     )}
+    ${(props: BtnProps) => props.disabled && `opacity: 0.5; cursor: not-allowed;`}
 `;
 
 interface ButtonProps {
-    text: string;
-    variant?: number;
-    onPress: () => void;
+  text: string;
+  variant?: number;
+  onPress: () => void;
+  disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({text, variant = 1, onPress}) => {
+const Button: React.FC<ButtonProps> = ({text, variant = 1, onPress, disabled = false}) => {
     return (
-        <ButtonContainer onClick={onPress} btnType={variant}>
+        <ButtonContainer onClick={onPress} btnType={variant} disabled={disabled}>
           {text}
         </ButtonContainer>
     );

@@ -23,7 +23,6 @@ const ButtonsContainer = styled.div`
   gap: 0.7rem;
 `;
 
-
 interface RoomsFormProps {}
 
 const RoomsForm: React.FC<RoomsFormProps> = () => {
@@ -47,9 +46,9 @@ const RoomsForm: React.FC<RoomsFormProps> = () => {
           setValue={setRoomId}
         />
         <ButtonsContainer>
-          <Button text="Join Room" onPress={onJoin} />
+          <Button text="Join Island" onPress={onJoin} />
           <Button
-            text="Create Room"
+            text="Create Island"
             onPress={onCreate}
             variant={2}
           />
