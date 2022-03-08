@@ -22,7 +22,7 @@ const GamesRecord: React.FC<GamesRecordProps> = () => {
           Authorization: `Bearer ${token}`,
         },
       }).then(({data}) => {
-        setGames(data.games);
+        setGames(data.games || []);
         setLoading!(false);
       }).catch(() => setLoading!(false));
     }, []);

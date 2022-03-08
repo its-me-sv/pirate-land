@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useNavigate} from 'react-router-dom';
 
 import prettyDate from '../../utils/pretty-date';
 import {getDateObj} from "../../utils/timeuuid-to-date";
@@ -26,9 +27,13 @@ interface RecordItemProps {
 };
 
 const RecordItem: React.FC<RecordItemProps> = ({id}) => {
+    const navigate = useNavigate();
+    
+    const handleClick = () => navigate(`../island/${id}/scoreboard`);
+
     return (
       <>
-        <RecordText>
+        <RecordText onClick={handleClick}>
           <span>
             {prettyDate(
               getDateObj(id).toISOString()
