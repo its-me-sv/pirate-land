@@ -38,7 +38,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
       .then(({data}) => {
         setId!(data.id as string);
         setToken!(data.token as string);
-        setCurrentGame!(data.current_game as string);
+        setCurrentGame!(data.currentGame as string);
         setLoading!(false);
       })
       .catch((err) => {

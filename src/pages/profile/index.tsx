@@ -29,8 +29,12 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     const {token, setId, setToken, setLoading, loading, id, currentGame} = useUserContext();
 
     useEffect(() => {
+      if (socket) return;
       setSocket!(io(SOCKET, {query: {userId: id}}));
-      if (currentGame.length > 0) navigate(`../island/${currentGame}/play`);
+    }, []);
+
+    useEffect(() => {
+      if (currentGame?.length > 0) navigate(`../island/${currentGame}/play`);
     }, [currentGame]);
     
     const logoutUser = () => {
