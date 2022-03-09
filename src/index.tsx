@@ -7,13 +7,16 @@ import App from './App';
 import {APIContextProvider} from './contexts/api.context';
 import {UserContextProvider} from './contexts/user.context';
 import {SocketContextProvider} from './contexts/socket.context';
+import {ScoreboardContextProvider} from './contexts/scoreboard.context';
 
 ReactDOM.render(
   <React.StrictMode>
     <APIContextProvider>
       <UserContextProvider>
         <SocketContextProvider>
-          <App />
+          <ScoreboardContextProvider>
+            <App />
+          </ScoreboardContextProvider>
         </SocketContextProvider>
       </UserContextProvider>
     </APIContextProvider>

@@ -16,6 +16,7 @@ import {GameIdSection} from './styles';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
+import {useScoreboardContext} from '../../contexts/scoreboard.context';
 
 interface ScoreBoardPageProps {}
 
@@ -23,9 +24,24 @@ const ScoreboardPage: React.FC<ScoreBoardPageProps> = () => {
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
     const {token, setLoading, loading} = useUserContext();
+    const {setTeam1, setTeam2} = useScoreboardContext();
     const navigate = useNavigate();
 
     useEffect(() => {
+      const fetchScoreboard = () => {
+        setLoading!(true);
+        axios.post(`${REST_API}/scoreboard/get_score`, {gameId}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({data}) => {
+          setLoading!(false);
+          setTeam1!(data.team1);
+          setTeam2!(data.team2);
+        })
+        .catch(() => setLoading!(false));;
+      };
       setLoading!(true);
       axios.post(`${REST_API}/users/check_game`, {gameId}, {
         headers: {
@@ -36,6 +52,7 @@ const ScoreboardPage: React.FC<ScoreBoardPageProps> = () => {
         setLoading!(false);
         const {canShow} = data;
         if (!canShow) navigate('../profile', {replace: true});
+        else fetchScoreboard();
       })
       .catch(() => setLoading!(false));
     }, []);
