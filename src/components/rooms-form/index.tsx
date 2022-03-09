@@ -1,8 +1,13 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 import Input from '../input';
 import Button from '../button';
+
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
 const RoomContainer = styled.div`
   display: flex;
@@ -26,15 +31,40 @@ const ButtonsContainer = styled.div`
 interface RoomsFormProps {}
 
 const RoomsForm: React.FC<RoomsFormProps> = () => {
+    const {REST_API} = useAPIContext();
+    const navigate = useNavigate();
+    const {token, setLoading} = useUserContext();
     const [roomId, setRoomId] = useState<string>('');
 
     const onJoin = () => {
       if (!roomId.length) return;
-      window.alert(roomId);
+      axios.post(`${REST_API}/games/check_join`, {gameId: roomId},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({data}) => {
+        setLoading!(false);
+        navigate(`../island/${data.gameId}/lobby`, { replace: true });
+      })
+      .catch((err) => {
+        window.alert(JSON.stringify(err.response.data));
+        setLoading!(false);
+      });
     };
     
     const onCreate = () => {
-      window.alert(roomId);
+      setLoading!(true);
+      axios.post(`${REST_API}/games/create`, {},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({data}) => {
+        setLoading!(false);
+        navigate(`../island/${data.gameId}/lobby`, { replace: true });
+      })
+      .catch(() => setLoading!(false));
     };
 
     return (
