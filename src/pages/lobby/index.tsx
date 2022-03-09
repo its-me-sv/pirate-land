@@ -10,8 +10,9 @@ import {
   TitleText,
   GameId,
   TeamsContainer,
-  VrtclLn
-} from './styles';
+  VrtclLn,
+  LaunchContainer,
+} from "./styles";
 
 interface LobbyPageProps {}
 
@@ -29,6 +30,9 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
         <LogoutSection>
           <Button text="Exit game" onPress={() => {}} />
         </LogoutSection>
+        <LaunchContainer>
+          <Button variant={2} text="Launch game" onPress={() => {}} />
+        </LaunchContainer>
       </LobbyContainer>
     );
 };

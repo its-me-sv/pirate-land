@@ -36,3 +36,9 @@ export const VrtclLn = styled.div`
   opacity: 0.7;
   height: 91%;
 `;
+
+export const LaunchContainer = styled.div`
+  position: absolute;
+  top: 2%;
+  left: 2%;
+`;
