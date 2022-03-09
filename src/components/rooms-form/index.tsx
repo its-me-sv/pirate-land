@@ -29,6 +29,7 @@ const RoomsForm: React.FC<RoomsFormProps> = () => {
     const [roomId, setRoomId] = useState<string>('');
 
     const onJoin = () => {
+      if (!roomId.length) return;
       window.alert(roomId);
     };
     
@@ -46,7 +47,7 @@ const RoomsForm: React.FC<RoomsFormProps> = () => {
           setValue={setRoomId}
         />
         <ButtonsContainer>
-          <Button text="Join Island" onPress={onJoin} />
+          <Button disabled={!roomId.length} text="Join Island" onPress={onJoin} />
           <Button
             text="Create Island"
             onPress={onCreate}
