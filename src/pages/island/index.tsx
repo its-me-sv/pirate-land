@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 import ChatContainer from '../../components/chat-container';
 import IslandHeader from '../../components/island-header';
@@ -21,6 +21,8 @@ interface IslandPageProps {}
 
 const IslandPage: React.FC<IslandPageProps> = () => {
     const {gameId} = useParams();
+    const navigate = useNavigate();
+    const takeToScoreboard = () => navigate(`../island/${gameId}/scoreboard`);
     return (
       <IslandContainer>
         <IslandHeader gameId={gameId} />
@@ -30,7 +32,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
             <GameGrid />
             <BoardFooter>
               <TeamPlayers />
-              <ScoreBoard href={`/#/island/${gameId}/scoreboard`}>
+              <ScoreBoard onClick={takeToScoreboard}>
                 <ScoreText variant={1}>12</ScoreText>
                 <VrtclLn />
                 <ScoreText variant={2}>12</ScoreText>

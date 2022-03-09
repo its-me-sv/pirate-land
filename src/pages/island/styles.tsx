@@ -25,7 +25,7 @@ export const BoardFooter = styled.div`
   height: 10vh;
 `;
 
-export const ScoreBoard = styled.a.attrs({
+export const ScoreBoard = styled.div.attrs({
   target: "_blank",
 })`
   border: 2px dashed rgb(0, 0, 0, 0.5);
