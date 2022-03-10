@@ -34,7 +34,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     }, []);
 
     useEffect(() => {
-      if (currentGame?.length > 0) navigate(`../island/${currentGame}/play`);
+      if (currentGame?.length > 0) navigate(`../island/${currentGame}/lobby`);
     }, [currentGame]);
     
     const logoutUser = () => {
