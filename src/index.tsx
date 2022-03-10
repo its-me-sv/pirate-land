@@ -8,6 +8,7 @@ import {APIContextProvider} from './contexts/api.context';
 import {UserContextProvider} from './contexts/user.context';
 import {SocketContextProvider} from './contexts/socket.context';
 import {ScoreboardContextProvider} from './contexts/scoreboard.context';
+import {LobbyContextProivder} from './contexts/lobby.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.render(
       <UserContextProvider>
         <SocketContextProvider>
           <ScoreboardContextProvider>
-            <App />
+            <LobbyContextProivder>
+              <App />
+            </LobbyContextProivder>
           </ScoreboardContextProvider>
         </SocketContextProvider>
       </UserContextProvider>

@@ -8,6 +8,7 @@ import Button from '../../components/button';
 import BlockLoader from '../../components/block-loader';
 import {useUserContext} from '../../contexts/user.context';
 import {useAPIContext} from '../../contexts/api.context';
+import {useLobbyContext} from '../../contexts/lobby.context';
 
 import {
   LobbyContainer,
@@ -22,9 +23,10 @@ interface LobbyPageProps {}
 
 const LobbyPage: React.FC<LobbyPageProps> = () => {
     const navigate = useNavigate();
-    const {loading, setLoading, token} = useUserContext();
+    const {loading, setLoading, token, setCurrentGame: scg} = useUserContext();
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
+    const {fetchGameForLobby} = useLobbyContext();
     
     const setCurrentGame = async (gid: string|null) => {
       setLoading!(true);
@@ -41,11 +43,13 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     };
     const leaveGame = async () => {
       await setCurrentGame(null);
-      navigate('../', {replace: true});
+      scg!('');
+      navigate('../profile', {replace: true});
     };
 
     useEffect(() => {
-
+      setCurrentGame(gameId as string | null);
+      fetchGameForLobby!(gameId as string);
     }, []);
 
     return (
