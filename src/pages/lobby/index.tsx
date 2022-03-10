@@ -23,10 +23,10 @@ interface LobbyPageProps {}
 
 const LobbyPage: React.FC<LobbyPageProps> = () => {
     const navigate = useNavigate();
-    const {loading, setLoading, token, setCurrentGame: scg} = useUserContext();
+    const {loading, setLoading, token, setCurrentGame: scg, id} = useUserContext();
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
-    const {fetchGameForLobby} = useLobbyContext();
+    const {fetchGameForLobby, creator} = useLobbyContext();
     
     const setCurrentGame = async (gid: string|null) => {
       setLoading!(true);
@@ -65,9 +65,11 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
         <LogoutSection>
           <Button text="Exit game" onPress={leaveGame} />
         </LogoutSection>
-        <LaunchContainer>
-          <Button variant={2} text="Launch game" onPress={() => {}} />
-        </LaunchContainer>
+        {creator === id && (
+          <LaunchContainer>
+            <Button variant={2} text="Launch game" onPress={() => {}} />
+          </LaunchContainer>
+        )}
       </LobbyContainer>
     );
 };
