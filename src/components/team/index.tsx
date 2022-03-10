@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Button from '../button';
 import Player from '../player';
 
 import {useLobbyContext} from '../../contexts/lobby.context';
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
 export const TeamContainer = styled.div`
   display: flex;
@@ -33,8 +36,30 @@ interface TeamProps {
 }
 
 const Team: React.FC<TeamProps> = ({teamName, variant}) => {
-  const {team1, team2, currTeam} = useLobbyContext();
+  const {team1, team2, currTeam, id: gameId, fetchGameForLobby} = useLobbyContext();
+  const {REST_API} = useAPIContext();
+  const {token, setLoading} = useUserContext();
   const players: Array<string> = teamName === "Team 1" ? team1 : team2;
+  const joinButton = async () => {
+    if (currTeam === teamName) return;
+    setLoading!(true);
+    try {
+      if (currTeam.length > 0) {
+        console.log("here");
+        await axios.put(`${REST_API}/games/leave_team`, {gameId, teamNo: currTeam}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+      }
+      await axios.put(`${REST_API}/games/join_team`, {gameId, teamNo: teamName}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      fetchGameForLobby!(gameId);
+    } catch (err) {window.alert(err);}
+  };
   return (
     <TeamContainer>
       <TeamTitle variant={variant}>{teamName}</TeamTitle>
@@ -47,7 +72,7 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
         disabled={currTeam === teamName}
         variant={variant}
         text={`Join ${teamName}`}
-        onPress={() => {}}
+        onPress={joinButton}
       />
     </TeamContainer>
   );

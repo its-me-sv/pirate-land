@@ -26,7 +26,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     const {loading, setLoading, token, setCurrentGame: scg, id} = useUserContext();
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
-    const {fetchGameForLobby, creator} = useLobbyContext();
+    const {fetchGameForLobby, creator, currTeam} = useLobbyContext();
     
     const setCurrentGame = async (gid: string|null) => {
       setLoading!(true);
@@ -42,9 +42,19 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
       }
     };
     const leaveGame = async () => {
-      await setCurrentGame(null);
-      scg!('');
-      navigate('../profile', {replace: true});
+      try {
+        if (currTeam.length > 0) {
+          console.log("here");
+          await axios.put(`${REST_API}/games/leave_team`, {gameId, teamNo: currTeam}, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
+        }
+        await setCurrentGame(null);
+        scg!("");
+        navigate("../profile", { replace: true });
+      } catch (err) {window.alert(err);}
     };
 
     useEffect(() => {
