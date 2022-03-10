@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import pirate1 from '../../assets/pirates/face-1.png';
 import pirate2 from '../../assets/pirates/face-2.png';
 import pirate3 from '../../assets/pirates/face-3.png';
 import pirate4 from '../../assets/pirates/face-4.png';
+
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
 export const pirateMapper: {[key:string]: string} = {
     1: pirate1,
@@ -33,11 +37,23 @@ const PlayerName = styled.span`
 `;
 
 interface PlayerProps {
-    name: string;
+    id: string;
     variant: number;
 }
 
-const Player: React.FC<PlayerProps> = ({variant, name}) => {
+const Player: React.FC<PlayerProps> = ({variant, id}) => {
+    const {REST_API} = useAPIContext();
+    const {token} = useUserContext();
+    const [name, setName] = useState<string>('-------');
+    useEffect(() => {
+      axios.post(`${REST_API}/users/name`, {userId: id}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({data}) => setName(data.name))
+      .catch(console.log);
+    }, []);
     return (
         <PlayerContainer>
             <PlayerImage src={pirateMapper[variant]} />

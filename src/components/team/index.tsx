@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Button from '../button';
 import Player from '../player';
 
+import {useLobbyContext} from '../../contexts/lobby.context';
+
 export const TeamContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,16 +33,23 @@ interface TeamProps {
 }
 
 const Team: React.FC<TeamProps> = ({teamName, variant}) => {
-  const [players, setPlayers] = useState<Array<string>>(["Suraj Vijay", "Suraj Vijay"]);
+  const {team1, team2, currTeam} = useLobbyContext();
+  const [players, setPlayers] = useState<Array<string>>(teamName === "Team 1" ? team1 : team2);
   return (
     <TeamContainer>
       <TeamTitle variant={variant}>{teamName}</TeamTitle>
       <PlayersContainer>
-        {[...players, ...players].map((val, idx) => (
-          <Player key={idx} variant={idx + 1} name={val} />
+        {players.map((val, idx) => (
+          <Player key={idx} variant={idx + 1} id={val} />
         ))}
       </PlayersContainer>
-      <Button variant={variant} text={`Join ${teamName}`} onPress={() => {}} />
+      {currTeam !== teamName && (
+        <Button
+          variant={variant}
+          text={`Join ${teamName}`}
+          onPress={() => {}}
+        />
+      )}
     </TeamContainer>
   );
 };
