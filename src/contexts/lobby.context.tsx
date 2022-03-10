@@ -50,7 +50,11 @@ export const LobbyContextProivder: React.FC = ({children}) => {
             setLaunched(data.launched);
             setTeam1(data.team1);
             setTeam2(data.team2);
-            const currentTeam = team1.includes(uid) ? "Team 1" : team2.includes(uid) ? "Team 2" : "";
+            const currentTeam = data.team1.includes(uid)
+              ? "Team 1"
+              : data.team2.includes(uid)
+              ? "Team 2"
+              : "";
             setCurrTeam(currentTeam);
             setLoading!(false);
         }).catch(() => setLoading!(false));

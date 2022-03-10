@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Button from '../button';
@@ -34,7 +34,7 @@ interface TeamProps {
 
 const Team: React.FC<TeamProps> = ({teamName, variant}) => {
   const {team1, team2, currTeam} = useLobbyContext();
-  const [players, setPlayers] = useState<Array<string>>(teamName === "Team 1" ? team1 : team2);
+  const players: Array<string> = teamName === "Team 1" ? team1 : team2;
   return (
     <TeamContainer>
       <TeamTitle variant={variant}>{teamName}</TeamTitle>
@@ -43,13 +43,12 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
           <Player key={idx} variant={idx + 1} id={val} />
         ))}
       </PlayersContainer>
-      {currTeam !== teamName && (
-        <Button
-          variant={variant}
-          text={`Join ${teamName}`}
-          onPress={() => {}}
-        />
-      )}
+      <Button
+        disabled={currTeam === teamName}
+        variant={variant}
+        text={`Join ${teamName}`}
+        onPress={() => {}}
+      />
     </TeamContainer>
   );
 };
