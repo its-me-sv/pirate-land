@@ -5,6 +5,7 @@ const LoaderContainer = styled.div`
   display: flex;
   position: absolute;
   align-items: center;
+  flex-direction: row;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.84);
   width: 100vw;
@@ -37,12 +38,17 @@ const Loader = styled.div`
   }
 `;
 
+const Caption = styled.h1`
+  color: white;
+`;
+
 interface BlockLoaderProps {}
 
 const BlockLoader: React.FC<BlockLoaderProps> = () => {
     return (
       <LoaderContainer>
         <Loader />
+        <Caption>Advertisement goes here</Caption>
       </LoaderContainer>
     );
 };

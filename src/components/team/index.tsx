@@ -8,6 +8,7 @@ import Player from '../player';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 export const TeamContainer = styled.div`
   display: flex;
@@ -39,6 +40,8 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
   const {team1, team2, currTeam, id: gameId, fetchGameForLobby} = useLobbyContext();
   const {REST_API} = useAPIContext();
   const {token, setLoading} = useUserContext();
+  const {socket} = useSocketContext();
+
   const players: Array<string> = teamName === "Team 1" ? team1 : team2;
   const joinButton = async () => {
     if (currTeam === teamName) return;
@@ -58,6 +61,7 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
         }
       });
       fetchGameForLobby!(gameId);
+      socket?.emit("updateRoom", `LOBBY:${gameId}`);
     } catch (err) {window.alert(err);}
   };
   return (

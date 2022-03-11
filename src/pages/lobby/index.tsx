@@ -9,6 +9,7 @@ import BlockLoader from '../../components/block-loader';
 import {useUserContext} from '../../contexts/user.context';
 import {useAPIContext} from '../../contexts/api.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 import {
   LobbyContainer,
@@ -27,6 +28,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
     const {fetchGameForLobby, creator, currTeam} = useLobbyContext();
+    const {socket} = useSocketContext();
     
     const setCurrentGame = async (gid: string|null) => {
       setLoading!(true);
@@ -52,6 +54,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
           });
         }
         await setCurrentGame(null);
+        socket?.emit("leaveRoom", `LOBBY:${gameId}`);
         scg!("");
         navigate("../profile", { replace: true });
       } catch (err) {window.alert(err);}
@@ -60,6 +63,11 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     useEffect(() => {
       setCurrentGame(gameId as string | null);
       fetchGameForLobby!(gameId as string);
+    }, []);
+
+    useEffect(() => {
+      socket?.emit("joinRoom", `LOBBY:${gameId}`);
+      socket?.on("updateRoom", () => fetchGameForLobby!(gameId as string));
     }, []);
 
     return (

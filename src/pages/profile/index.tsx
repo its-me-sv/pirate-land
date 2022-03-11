@@ -49,6 +49,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
         setToken!('');
         setLoading!(false);
         socket?.close();
+        setSocket!(null);
       })
       .catch(() => setLoading!(false));
     };
