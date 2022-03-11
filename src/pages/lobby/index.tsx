@@ -54,6 +54,10 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
           });
         }
         await setCurrentGame(null);
+        if (creator === id) {
+          socket?.emit("hostLeft", `LOBBY:${gameId}`);
+        }
+        socket?.emit("updateRoom", `LOBBY:${gameId}`);
         socket?.emit("leaveRoom", `LOBBY:${gameId}`);
         scg!("");
         navigate("../profile", { replace: true });
@@ -68,6 +72,10 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     useEffect(() => {
       socket?.emit("joinRoom", `LOBBY:${gameId}`);
       socket?.on("updateRoom", () => fetchGameForLobby!(gameId as string));
+      socket?.on("hostLeft", () => {
+        leaveGame();
+        window.alert("Host left the game");
+      });
     }, []);
 
     return (

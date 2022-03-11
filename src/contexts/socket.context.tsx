@@ -6,12 +6,14 @@ interface ServerToClientEvents {
   basicEmit: (a: number, b: string, c: Buffer) => void;
   withAck: (d: string, callback: (e: number) => void) => void;
   updateRoom?: () => void;
+  hostLeft?: () => void;
 }
 
 interface ClientToServerEvents {
   joinRoom?: (roomId: string) => void;
   leaveRoom?: (roomId: string) => void;
   updateRoom?: (roomId: string) => void;
+  hostLeft?: (roomId: string) => void;
 }
 
 interface SocketContextInterface {
