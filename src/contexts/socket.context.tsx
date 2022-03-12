@@ -7,6 +7,7 @@ interface ServerToClientEvents {
   withAck: (d: string, callback: (e: number) => void) => void;
   updateRoom?: () => void;
   hostLeft?: () => void;
+  gameLaunched?: () => void;
 }
 
 interface ClientToServerEvents {
@@ -14,6 +15,7 @@ interface ClientToServerEvents {
   leaveRoom?: (roomId: string) => void;
   updateRoom?: (roomId: string) => void;
   hostLeft?: (roomId: string) => void;
+  gameLaunched?: (roomId: string) => void;
 }
 
 interface SocketContextInterface {

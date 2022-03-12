@@ -27,7 +27,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     const {loading, setLoading, token, setCurrentGame: scg, id} = useUserContext();
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
-    const {fetchGameForLobby, creator, currTeam, team1, team2} = useLobbyContext();
+    const {fetchGameForLobby, creator, currTeam, team1, team2, launched} = useLobbyContext();
     const {socket} = useSocketContext();
     
     const setCurrentGame = async (gid: string|null) => {
@@ -76,7 +76,33 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
         leaveGame();
         window.alert("Host left the game");
       });
+      socket?.on("gameLaunched", () => navigate(`../island/${gameId}/play`));
     }, []);
+
+    useEffect(() => {
+      if (launched === true) navigate(`../island/${gameId}/play`);
+    }, [launched]);
+
+    const launchGame = () => {
+      if (id !== creator) return;
+      setLoading!(true);
+      axios
+        .put(
+          `${REST_API}/games/launch_game`,
+          { gameId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(() => {
+          setLoading!(false);
+          socket?.emit("gameLaunched", `LOBBY:${gameId}`);
+          navigate(`../island/${gameId}/play`);
+        })
+        .catch(() => setLoading!(false));
+    };
 
     return (
       <LobbyContainer>
@@ -95,9 +121,9 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
           <LaunchContainer>
             <Button
               disabled={!(team1.length === team2.length && team1.length > 0)}
-              variant={2} 
-              text="Launch game" 
-              onPress={() => {}} 
+              variant={2}
+              text="Launch game"
+              onPress={launchGame}
             />
           </LaunchContainer>
         )}

@@ -73,7 +73,7 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
         ))}
       </PlayersContainer>
       <Button
-        disabled={currTeam === teamName}
+        disabled={currTeam === teamName || players.length === 4}
         variant={variant}
         text={`Join ${teamName}`}
         onPress={joinButton}
