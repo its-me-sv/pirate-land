@@ -27,7 +27,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     const {loading, setLoading, token, setCurrentGame: scg, id} = useUserContext();
     const {gameId} = useParams();
     const {REST_API} = useAPIContext();
-    const {fetchGameForLobby, creator, currTeam} = useLobbyContext();
+    const {fetchGameForLobby, creator, currTeam, team1, team2} = useLobbyContext();
     const {socket} = useSocketContext();
     
     const setCurrentGame = async (gid: string|null) => {
@@ -93,7 +93,12 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
         </LogoutSection>
         {creator === id && (
           <LaunchContainer>
-            <Button variant={2} text="Launch game" onPress={() => {}} />
+            <Button
+              disabled={!(team1.length === team2.length && team1.length > 0)}
+              variant={2} 
+              text="Launch game" 
+              onPress={() => {}} 
+            />
           </LaunchContainer>
         )}
       </LobbyContainer>
