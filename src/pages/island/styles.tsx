@@ -34,7 +34,6 @@ export const ScoreBoard = styled.div.attrs({
   display: flex;
   justify-content: space-evenly;
   gap: 1rem;
-  cursor: pointer;
   text-decoration: none;
 `;
 

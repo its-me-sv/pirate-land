@@ -31,7 +31,7 @@ const IslandHeader: React.FC<IslandHeaderProps> = ({gameId}) => {
       <Header>
         <HeaderText>{gameId}</HeaderText>
         <TitleText>Pirate Land</TitleText>
-        <HeaderText>Round - 1</HeaderText>
+        <HeaderText>{1}'s chance</HeaderText>
       </Header>
     );
 };
