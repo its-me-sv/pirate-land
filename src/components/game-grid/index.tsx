@@ -12,9 +12,9 @@ const GameGrid: React.FC<GameGridProps> = () => {
     const onBoxClick = (player: number, type: number, idx: number) => {
         if (player !== 0) return;
         setGrid(oldGrid => {
-            const newGrid = [...oldGrid];
-            newGrid[idx] = type;
-            return newGrid;
+          const newGrid = [...oldGrid];
+          newGrid[idx] = type;
+          return newGrid;
         });
     };
 

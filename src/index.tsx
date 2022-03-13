@@ -9,6 +9,7 @@ import {UserContextProvider} from './contexts/user.context';
 import {SocketContextProvider} from './contexts/socket.context';
 import {ScoreboardContextProvider} from './contexts/scoreboard.context';
 import {LobbyContextProivder} from './contexts/lobby.context';
+import {PlayContextProvider} from './contexts/play.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +18,9 @@ ReactDOM.render(
         <SocketContextProvider>
           <ScoreboardContextProvider>
             <LobbyContextProivder>
-              <App />
+              <PlayContextProvider>
+                <App />
+              </PlayContextProvider>
             </LobbyContextProivder>
           </ScoreboardContextProvider>
         </SocketContextProvider>
