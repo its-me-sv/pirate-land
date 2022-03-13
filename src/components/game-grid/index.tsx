@@ -23,7 +23,25 @@ const GameGrid: React.FC<GameGridProps> = () => {
     const onBoxClick = async (player: number, typ: number, idx: number) => {
       if (player !== 0) return;
       if (id !== players[currPlayer]) return window.alert(`Not your chance`);
-      // else, update the board
+      // game started, update on enemy board as well
+      if (!initial) {
+        setLoading!(true);
+        // make the move
+        
+        // update the chance
+        await axios.put(
+          `${REST_API}/games/update_chance`,
+          { gameId },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        updateChance!();
+        socket?.emit("updateChance", `LOBBY:${gameId}`);
+        setLoading!(false);
+        return;
+      }
+      // else, update the team board
       try {
         setLoading!(true);
         const reqBody = { currTeamId, typ, idx, oppTeamId, initial };
