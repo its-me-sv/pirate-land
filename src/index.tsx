@@ -10,6 +10,7 @@ import {SocketContextProvider} from './contexts/socket.context';
 import {ScoreboardContextProvider} from './contexts/scoreboard.context';
 import {LobbyContextProivder} from './contexts/lobby.context';
 import {PlayContextProvider} from './contexts/play.context';
+import {BoardContextProvider} from './contexts/board.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,7 +20,9 @@ ReactDOM.render(
           <ScoreboardContextProvider>
             <LobbyContextProivder>
               <PlayContextProvider>
-                <App />
+                <BoardContextProvider>
+                  <App />
+                </BoardContextProvider>
               </PlayContextProvider>
             </LobbyContextProivder>
           </ScoreboardContextProvider>

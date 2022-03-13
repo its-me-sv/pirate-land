@@ -19,7 +19,7 @@ const defaultState: PlayContextInterface = {
   players: [],
   currTeamId: "",
   oppTeamId: "",
-  initial: true,
+  initial: false,
 };
 
 export const PlayContext = createContext<PlayContextInterface>(defaultState);
