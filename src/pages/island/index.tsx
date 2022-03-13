@@ -30,7 +30,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
     const {gameId} = useParams();
     const {loading} = useUserContext();
     const {fetchScoreboard} = useScoreboardContext();
-    const {initialPlayFetch, currTeamId} = usePlayContext();
+    const {initialPlayFetch, currTeamId, updateChance} = usePlayContext();
     const {currTeam} = useLobbyContext();
     const {socket} = useSocketContext();
     const {fetchBoard} = useBoardContext();
@@ -51,6 +51,9 @@ const IslandPage: React.FC<IslandPageProps> = () => {
       socket?.on("updateBoard", (boardId) => {
         console.log("here 2");
         fetchBoard!(boardId);
+      });
+      socket?.on("updateChance", () =>  {
+        updateChance!();
       });
     }, []);
     

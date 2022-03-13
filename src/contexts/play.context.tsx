@@ -1,9 +1,9 @@
 import React, {createContext, useContext, useState} from 'react';
+import axios from "axios";
 
 import {useAPIContext} from '../contexts/api.context';
 import {useUserContext} from '../contexts/user.context';
 import {useLobbyContext} from '../contexts/lobby.context';
-import axios from 'axios';
 
 interface PlayContextInterface {
   currPlayer: number;
@@ -12,6 +12,7 @@ interface PlayContextInterface {
   oppTeamId: string;
   initial: boolean;
   initialPlayFetch?: (gameId: string) => void;
+  updateChance?: () => void;
 };
 
 const defaultState: PlayContextInterface = {
@@ -29,7 +30,7 @@ export const usePlayContext = () => useContext(PlayContext);
 export const PlayContextProvider: React.FC = ({children}) => {
     const {REST_API} = useAPIContext();
     const {token, setLoading} = useUserContext();
-    const {currTeam: team} = useLobbyContext();
+    const {currTeam: team, id: gameId} = useLobbyContext();
 
     const [currPlayer, setCurrPlayer] = useState<number>(defaultState.currPlayer);
     const [players, setPlayers] = useState<Array<string>>(defaultState.players);
@@ -53,10 +54,23 @@ export const PlayContextProvider: React.FC = ({children}) => {
       }).catch(() => setLoading!(false));
     };
 
+    const updateChance = async () => {
+      try {
+        setLoading!(true);
+        const {data} = await axios.post(`${REST_API}/games/get_chance`, {gameId}, {
+          headers: {Authorization: `Bearer ${token}`,}
+        });
+        console.log(data);
+        setCurrPlayer(+data.chance_off);
+        setInitial(data.initial);
+        setLoading!(false);
+      } catch (err) {setLoading!(false);}
+    };
+
     return (
         <PlayContext.Provider value={{
             currPlayer, players, currTeamId, oppTeamId, initial,
-            initialPlayFetch
+            initialPlayFetch, updateChance
         }}>{children}</PlayContext.Provider>
     );
 };
