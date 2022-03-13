@@ -1,5 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
+import {usePlayContext} from '../../contexts/play.context';
 
 const Header = styled.div`
   display: flex;
@@ -27,11 +32,24 @@ interface IslandHeaderProps {
 }
 
 const IslandHeader: React.FC<IslandHeaderProps> = ({gameId}) => {
+    const {REST_API} = useAPIContext();
+    const {token} = useUserContext();
+    const {currPlayer, players} = usePlayContext();
+    const [username, setUsername] = useState<string>('-------');
+    useEffect(() => {
+      const playerId = players[currPlayer];
+      if (!playerId?.length) return;
+      axios.post(`${REST_API}/users/username`, {userId: playerId}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(({data}) => setUsername(data.username));
+    }, [currPlayer, players]);
     return (
       <Header>
         <HeaderText>{gameId}</HeaderText>
         <TitleText>Pirate Land</TitleText>
-        <HeaderText>{1}'s chance</HeaderText>
+        <HeaderText>{username}'s chance</HeaderText>
       </Header>
     );
 };
