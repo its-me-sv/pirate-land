@@ -14,6 +14,7 @@ import {useScoreboardContext} from '../../contexts/scoreboard.context';
 import {usePlayContext} from '../../contexts/play.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useSocketContext} from '../../contexts/socket.context';
+import {useBoardContext} from '../../contexts/board.context';
 
 import {
   IslandContainer,
@@ -32,6 +33,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
     const {initialPlayFetch, currTeamId} = usePlayContext();
     const {currTeam} = useLobbyContext();
     const {socket} = useSocketContext();
+    const {fetchBoard} = useBoardContext();
     // const navigate = useNavigate();
     // const takeToScoreboard = () => navigate(`../island/${gameId}/scoreboard`);
 
@@ -44,6 +46,13 @@ const IslandPage: React.FC<IslandPageProps> = () => {
       if (!currTeamId.length) return;
       socket?.emit("joinRoom", currTeamId);
     }, [currTeamId]);
+
+    useEffect(() => {
+      socket?.on("updateBoard", (boardId) => {
+        console.log("here 2");
+        fetchBoard!(boardId);
+      });
+    }, []);
     
     return (
       <IslandContainer>

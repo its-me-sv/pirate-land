@@ -38,7 +38,8 @@ export const BoardContextProvider: React.FC = ({children}) => {
 
     const fetchBoard = (boardId: string) => {
       setLoading!(true);
-      axios.post(`${REST_API}/boards/get_board`, {boardId}, {
+      const final = boardId.length > 0 ? boardId : currTeamId;
+      axios.post(`${REST_API}/boards/get_board`, {boardId: final}, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -62,6 +63,7 @@ export const BoardContextProvider: React.FC = ({children}) => {
     };
 
     useEffect(() => {
+        console.log("here 1");
         if (!currTeamId.length) return;
         if (board.length) return;
         fetchBoard(currTeamId);
