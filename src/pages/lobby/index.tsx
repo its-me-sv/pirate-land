@@ -89,7 +89,7 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
       axios
         .put(
           `${REST_API}/games/launch_game`,
-          { gameId },
+          { gameId, allPlayers: [...team1, ...team2] },
           {
             headers: {
               Authorization: `Bearer ${token}`,
