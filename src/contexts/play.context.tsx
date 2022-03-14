@@ -13,6 +13,7 @@ interface PlayContextInterface {
   initial: boolean;
   initialPlayFetch?: (gameId: string) => void;
   updateChance?: () => void;
+  resetPlay?: () => void;
 };
 
 const defaultState: PlayContextInterface = {
@@ -67,10 +68,18 @@ export const PlayContextProvider: React.FC = ({children}) => {
       } catch (err) {setLoading!(false);}
     };
 
+    const resetPlay = () => {
+      setCurrPlayer(defaultState.currPlayer);
+      setPlayers(defaultState.players);
+      setCurrTeamId(defaultState.currTeamId);
+      setOppTeamId(defaultState.oppTeamId);
+      setInitial(defaultState.initial);
+    };
+
     return (
         <PlayContext.Provider value={{
             currPlayer, players, currTeamId, oppTeamId, initial,
-            initialPlayFetch, updateChance
+            initialPlayFetch, updateChance, resetPlay
         }}>{children}</PlayContext.Provider>
     );
 };

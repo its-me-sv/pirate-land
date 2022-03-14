@@ -6,12 +6,13 @@ import {useUserContext} from './user.context';
 import {usePlayContext} from './play.context';
 
 interface BoardContextInterface {
-    mtyp: number;
-    clicks: number;
-    board: Array<number>;
-    myTeam: Array<string>;
-    fetchBoard?: (boardId: string) => void;
-    setClicks?: (val: number) => void;
+  mtyp: number;
+  clicks: number;
+  board: Array<number>;
+  myTeam: Array<string>;
+  fetchBoard?: (boardId: string) => void;
+  setClicks?: (val: number) => void;
+  resetBoard?: () => void;
 }
 
 const defaultState: BoardContextInterface = {
@@ -62,6 +63,14 @@ export const BoardContextProvider: React.FC = ({children}) => {
         }).catch(() => setLoading!(false));
     };
 
+    const resetBoard = () => {
+      setMtyp(defaultState.mtyp);
+      setClicks(defaultState.clicks);
+      setBoard(defaultState.board);
+      setMyTeam(defaultState.myTeam);
+      setWasInitial(false);
+    };
+
     useEffect(() => {
         console.log("here 1");
         if (!currTeamId.length) return;
@@ -86,7 +95,7 @@ export const BoardContextProvider: React.FC = ({children}) => {
         <BoardContext.Provider
           value={{
             mtyp, clicks, board, myTeam,
-            fetchBoard, setClicks
+            fetchBoard, setClicks, resetBoard
           }}
         >{children}</BoardContext.Provider>
     );

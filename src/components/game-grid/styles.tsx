@@ -17,6 +17,7 @@ export const Grid = styled.div`
 
 export const Box = styled.div<{ player: number; avail: boolean }>`
   background-size: cover;
+  border-radius: 0.3rem;
   ${(props) =>
     props.player !== 0 && `background-image: url(${pirateMapper[Math.abs(props.player)]});`}
   background-size: cover;

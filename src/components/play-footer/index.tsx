@@ -9,27 +9,39 @@ import {useScoreboardContext} from '../../contexts/scoreboard.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
+import {useBoardContext} from '../../contexts/board.context';
+import {usePlayContext} from '../../contexts/play.context';
 
 interface PlayFooterProps {
   gameId: string;
 };
 
 const PlayFooter: React.FC<PlayFooterProps> = ({gameId}) => {
-    const {team1, team2} = useScoreboardContext();
-    const {team1: t1p, team2: t2p, creator} = useLobbyContext();
+    const {team1, team2, resetScoreboard} = useScoreboardContext();
+    const {resetBoard} = useBoardContext();
+    const {team1: t1p, team2: t2p, creator, resetLobby} = useLobbyContext();
+    const {resetPlay} = usePlayContext();
     const {REST_API} = useAPIContext();
-    const {token, id} = useUserContext();
+    const {token, id, setCurrentGame} = useUserContext();
     const navigate = useNavigate();
     const team1Score = team1.reduce((init, val) => init = init + val.captures, 0);
     const team2Score = team2.reduce((init, val) => init = init + val.captures, 0);
     useEffect(() => {
-      if (team1Score >= (t2p.length * 3) || team2Score >= (t1p.length * 3)) {
+      if (!t2p.length || !t1p.length) return;
+      if ((team1Score >= (t2p.length * 3) && team1Score > 0) || (team2Score >= (t1p.length * 3) && team2Score > 0)) {
         const headers = {Authorization: `Bearer ${token}`};
         if (creator === id) {
           axios.put(`${REST_API}/games/finish_game`, {gameId}, {headers});
         }
         axios.put(`${REST_API}/users/set_last_game`, {gameId}, {headers})
-        .then(() => navigate(`../island/${gameId}/scoreboard`));
+        .then(() => {
+          setCurrentGame!('');
+          resetBoard!();
+          resetLobby!();
+          resetPlay!();
+          resetScoreboard!();
+          navigate(`../island/${gameId}/scoreboard`);
+        });
       }
     }, [team1Score, team2Score]);
     return (

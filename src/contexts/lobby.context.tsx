@@ -12,6 +12,7 @@ interface LobbyContextInterface {
   team2: Array<string>;
   currTeam: string;
   fetchGameForLobby?: (gameId: string) => void;
+  resetLobby?: () => void;
 }
 
 const defaultState: LobbyContextInterface = {
@@ -60,10 +61,19 @@ export const LobbyContextProivder: React.FC = ({children}) => {
         }).catch(() => setLoading!(false));
     };
 
+    const resetLobby = () => {
+      setId(defaultState.id);
+      setCreator(defaultState.creator);
+      setTeam1(defaultState.team1);
+      setTeam2(defaultState.team2);
+      setCurrTeam(defaultState.currTeam);
+      setLaunched(defaultState.launched);
+    };
+
     return (
         <LobbyContext.Provider value={{
             id, creator, team1, team2, currTeam, launched,
-            fetchGameForLobby
+            fetchGameForLobby, resetLobby
         }}>{children}</LobbyContext.Provider>
     );
 };

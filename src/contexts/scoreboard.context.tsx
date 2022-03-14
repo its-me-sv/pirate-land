@@ -18,6 +18,7 @@ interface ScoreboardContextInterface {
   setTeam2?: (val: Array<ScoreboardTeamProps>) => void;
   setLoading?: (val: boolean) => void;
   fetchScoreboard?: (val: string) => void;
+  resetScoreboard?: () => void;
 }
 
 const defaultState: ScoreboardContextInterface = {
@@ -50,12 +51,17 @@ export const ScoreboardContextProvider: React.FC = ({children}) => {
             setTeam2(data.team2);
         }).catch(() => slu!(false));
     };
+
+    const resetScoreboard = () => {
+        setTeam1(defaultState.team1);
+        setTeam2(defaultState.team2);
+    };
     
     return (
         <ScoreboardContext.Provider value={{
             team1, team2, loading,
             setTeam1, setTeam2, setLoading,
-            fetchScoreboard
+            fetchScoreboard, resetScoreboard
         }}>{children}</ScoreboardContext.Provider>
     );
 };

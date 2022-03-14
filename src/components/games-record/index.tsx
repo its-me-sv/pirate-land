@@ -27,12 +27,20 @@ const GamesRecord: React.FC<GamesRecordProps> = () => {
       }).catch(() => setLoading!(false));
     }, []);
 
+    const visited: Array<string> = [];
+    const final: Array<string> = [];
+    for (let game of games) {
+      if (visited.includes(game)) continue;
+      final.push(game);
+      visited.push(game);
+    }
+
     return (
       <RecordContainer>
         <ColTitle>Games Record</ColTitle>
         <GamesHolder>
-          {games.length > 0 ? (
-            games.map((game, idx) => <RecordItem key={idx} id={game} />)
+          {final.length > 0 ? (
+            final.map((game, idx) => <RecordItem key={idx} id={game} />)
           ) : (
             <EndBar>No games played yet</EndBar>
           )}
