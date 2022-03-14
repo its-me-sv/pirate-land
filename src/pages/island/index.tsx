@@ -54,12 +54,12 @@ const IslandPage: React.FC<IslandPageProps> = () => {
       });
       socket?.on("updtBrd", () => {
         fetchBoard!(currTeamId);
-        fetchScoreboard!(currTeamId);
+        fetchScoreboard!(gameId as string);
       });
       socket?.on("updateChance", () =>  {
         updateChance!();
       });
-    }, [currTeamId]);
+    }, [currTeamId, gameId]);
     
     return (
       <IslandContainer>
