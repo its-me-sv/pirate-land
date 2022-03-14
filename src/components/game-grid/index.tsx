@@ -27,7 +27,6 @@ const GameGrid: React.FC<GameGridProps> = () => {
       if (!initial) {
         setLoading!(true);
         // make the move
-        
         // update the chance
         await axios.put(
           `${REST_API}/games/update_chance`,
