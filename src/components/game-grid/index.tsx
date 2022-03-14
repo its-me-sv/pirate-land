@@ -9,6 +9,7 @@ import {usePlayContext} from '../../contexts/play.context';
 import {useUserContext} from '../../contexts/user.context';
 import {useSocketContext} from '../../contexts/socket.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
+import {useScoreboardContext} from '../../contexts/scoreboard.context';
 
 interface GameGridProps {}
 
@@ -19,6 +20,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
     const {board, clicks, setClicks, fetchBoard, mtyp} = useBoardContext();
     const {currPlayer, players, currTeamId , oppTeamId, initial, updateChance} = usePlayContext();
     const {id, setLoading, token} = useUserContext();
+    const {fetchScoreboard} = useScoreboardContext();
 
     const onBoxClick = async (player: number, typ: number, idx: number) => {
       if (player !== 0) return;
@@ -35,6 +37,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
           if (data === "hit") {
             // update the board for all teams
             fetchBoard!(currTeamId);
+            fetchScoreboard!(gameId);
             socket?.emit("updtBrd", `LOBBY:${gameId}`);
           }
           // update the chance

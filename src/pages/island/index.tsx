@@ -69,7 +69,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
           <ChatContainer title="Team Chat" variant={1} />
           <BoardContainer>
             <GameGrid />
-            <PlayFooter />
+            <PlayFooter gameId={gameId as string} />
           </BoardContainer>
           <ChatContainer title="World Chat" variant={2} />
         </GameArea>

@@ -1,24 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import {BoardFooter, ScoreBoard, ScoreText, VrtclLn} from '../../pages/island/styles';
 import TeamPlayers from '../team-players';
 
 import {useScoreboardContext} from '../../contexts/scoreboard.context';
+import {useLobbyContext} from '../../contexts/lobby.context';
 
-interface PlayFooterProps {};
+interface PlayFooterProps {
+  gameId: string;
+};
 
-const PlayFooter: React.FC<PlayFooterProps> = () => {
+const PlayFooter: React.FC<PlayFooterProps> = ({gameId}) => {
     const {team1, team2} = useScoreboardContext();
+    const {team1: t1p, team2: t2p} = useLobbyContext();
+    const navigate = useNavigate();
+    const team1Score = team1.reduce((init, val) => init = init + val.captures, 0);
+    const team2Score = team2.reduce((init, val) => init = init + val.captures, 0);
+    useEffect(() => {
+      if (team1Score >= (t2p.length * 3) || team2Score >= (t1p.length * 3))
+        navigate(`../island/${gameId}/scoreboard`);
+    }, [team1Score, team2Score]);
     return (
       <BoardFooter>
         <TeamPlayers team={1} />
         <ScoreBoard>
           <ScoreText variant={1}>
-            {team1.reduce((init, val) => init = init + val.captures, 0)}
+            {team1Score}
           </ScoreText>
           <VrtclLn />
           <ScoreText variant={2}>
-            {team2.reduce((init, val) => init = init + val.captures, 0)}
+            {team2Score}
           </ScoreText>
         </ScoreBoard>
         <TeamPlayers team={2} />
