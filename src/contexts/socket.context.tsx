@@ -10,6 +10,7 @@ interface ServerToClientEvents {
   gameLaunched?: () => void;
   updateBoard?: (boardId: string) => void;
   updateChance?: () => void;
+  updtBrd?: () => void;
 }
 
 interface ClientToServerEvents {
@@ -20,6 +21,7 @@ interface ClientToServerEvents {
   gameLaunched?: (roomId: string) => void;
   updateBoard?: (roomId: string) => void;
   updateChance?: (roomId: string) => void;
+  updtBrd?: (roomId: string) => void;
 }
 
 interface SocketContextInterface {

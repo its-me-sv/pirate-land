@@ -18,10 +18,12 @@ export const Grid = styled.div`
 export const Box = styled.div<{ player: number; avail: boolean }>`
   background-size: cover;
   ${(props) =>
-    props.player > 0 && `background-image: url(${pirateMapper[props.player]});`}
+    props.player !== 0 && `background-image: url(${pirateMapper[Math.abs(props.player)]});`}
   background-size: cover;
   cursor: pointer;
   ${(props) => props.avail && `cursor: not-allowed;`}
+  ${(props) =>
+    props.player < 0 && `background-color: rgba(0, 0, 0, 0.7);`}
   &:hover {
     ${(props) => props.player === 0 && `background-color: rgba(0, 0, 0, 0.21);`}
   }

@@ -15,7 +15,7 @@ interface GameGridProps {}
 const GameGrid: React.FC<GameGridProps> = () => {
     const {REST_API} = useAPIContext();
     const {socket} = useSocketContext();
-    const {id: gameId} = useLobbyContext();
+    const {id: gameId, currTeam} = useLobbyContext();
     const {board, clicks, setClicks, fetchBoard, mtyp} = useBoardContext();
     const {currPlayer, players, currTeamId , oppTeamId, initial, updateChance} = usePlayContext();
     const {id, setLoading, token} = useUserContext();
@@ -25,19 +25,33 @@ const GameGrid: React.FC<GameGridProps> = () => {
       if (id !== players[currPlayer]) return window.alert(`Not your chance`);
       // game started, update on enemy board as well
       if (!initial) {
-        setLoading!(true);
-        // make the move
-        // update the chance
-        await axios.put(
-          `${REST_API}/games/update_chance`,
-          { gameId },
-          {
-            headers: { Authorization: `Bearer ${token}` },
+        try {
+          setLoading!(true);
+          // make the move
+          const rb = {currTeamId, oppTeamId, gameId, currTeam, mTyp: mtyp, idx};
+          const {data} =  await axios.put(`${REST_API}/boards/make_move`, {...rb}, {
+            headers: {Authorization: `Bearer ${token}`},
+          });
+          if (data === "hit") {
+            // update the board for all teams
+            fetchBoard!(currTeamId);
+            socket?.emit("updtBrd", `LOBBY:${gameId}`);
           }
-        );
-        updateChance!();
-        socket?.emit("updateChance", `LOBBY:${gameId}`);
-        setLoading!(false);
+          // update the chance
+          await axios.put(
+            `${REST_API}/games/update_chance`,
+            { gameId },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          updateChance!();
+          socket?.emit("updateChance", `LOBBY:${gameId}`);
+          setLoading!(false);
+        } catch (err) {
+          window.alert(err);
+          setLoading!(false);
+        };
         return;
       }
       // else, update the team board
