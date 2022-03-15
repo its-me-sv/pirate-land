@@ -15,7 +15,7 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
     const {REST_API} = useAPIContext();
-    const {token} = useUserContext();
+    const {token, id: uid} = useUserContext();
     const [name, setName] = useState<string>('-------');
     useEffect(() => {
       axios.post(`${REST_API}/users/name`, {userId: sender_id}, {
@@ -29,7 +29,7 @@ const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
     
     return (
       <MessageContainer>
-        <Sender>{name}</Sender>
+        <Sender>{uid === sender_id ? "You" : name}</Sender>
         <Msg>{message}</Msg>
         <Time>{format(id)}</Time>
         <VrtclLn />
