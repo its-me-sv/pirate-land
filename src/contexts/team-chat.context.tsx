@@ -1,9 +1,10 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useState, useEffect} from "react";
 import axios from "axios";
 
 import {usePlayContext} from './play.context';
 import {useUserContext} from './user.context';
 import {useAPIContext} from './api.context';
+import {useSocketContext} from '../contexts/socket.context';
 import {getDateObj} from '../utils/timeuuid-to-date';
 
 export interface Message {
@@ -31,6 +32,7 @@ export const useTeamChatContext = () => useContext(TeamChatContext);
 
 export const TeamChatContextProvider: React.FC = ({children}) => {
     const {currTeamId} = usePlayContext();
+    const {socket} = useSocketContext();
     const {setLoading, token} = useUserContext();
     const {REST_API} = useAPIContext();
     const [messages, setMessages] = useState<Array<Message>>(defautState.messages);
@@ -63,9 +65,14 @@ export const TeamChatContextProvider: React.FC = ({children}) => {
         }).then(({data}) => {
             const msgToAdd = {...data};
             msgToAdd.id = getDateObj(msgToAdd.id).toISOString();
+            socket?.emit("updtTmChat", {roomId: currTeamId, msgObj: msgToAdd});
             setMessages([msgToAdd, ...messages]);
         }).catch(() => ({}));
     };
+
+    useEffect(() => {
+        socket?.on("updtTmChat", obj => setMessages([obj, ...messages]));
+    }, [messages]);
 
     return (
         <TeamChatContext.Provider value={{

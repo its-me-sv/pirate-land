@@ -11,6 +11,7 @@ interface ServerToClientEvents {
   updateBoard?: (boardId: string) => void;
   updateChance?: () => void;
   updtBrd?: () => void;
+  updtTmChat?: (msgObj: any) => void;
 }
 
 interface ClientToServerEvents {
@@ -22,6 +23,7 @@ interface ClientToServerEvents {
   updateBoard?: (roomId: string) => void;
   updateChance?: (roomId: string) => void;
   updtBrd?: (roomId: string) => void;
+  updtTmChat?: (obj: any) => void;
 }
 
 interface SocketContextInterface {
