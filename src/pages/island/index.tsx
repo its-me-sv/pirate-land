@@ -42,6 +42,11 @@ const IslandPage: React.FC<IslandPageProps> = () => {
       if (!currTeamId.length) return;
       socket?.emit("joinRoom", currTeamId);
     }, [currTeamId]);
+    
+    useEffect(() => {
+      if (!gameId?.length) return;
+      socket?.emit("joinRoom", gameId);
+    }, [gameId]);
 
     useEffect(() => {
       socket?.on("updateBoard", (boardId) => {

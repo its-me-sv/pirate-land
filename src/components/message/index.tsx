@@ -25,11 +25,11 @@ const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
         },
       }).then(({data}) => setName(data.name))
       .catch(console.log);
-    }, []);
+    }, [sender_id]);
     
     return (
       <MessageContainer>
-        {/* <Sender>{name}</Sender> */}
+        <Sender>{name}</Sender>
         <Msg>{message}</Msg>
         <Time>{format(id)}</Time>
         <VrtclLn />

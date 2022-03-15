@@ -4,6 +4,7 @@ import Message from '../message';
 import MessageInput from '../message-input';
 
 import {useTeamChatContext, Message as MsgTyp} from '../../contexts/team-chat.context';
+import {useWorldChatContext} from '../../contexts/world-chat.context';
 import {usePlayContext} from '../../contexts/play.context';
 
 import {ChatsContainer, ChatsTitle, MessagesContainer} from './styles';
@@ -16,20 +17,23 @@ interface ChatContainerProps {
 
 const ChatContainer: React.FC<ChatContainerProps> = ({title, variant, gameId}) => {
     const {messages: tmMsgs, fetchMessages, sendMessage} = useTeamChatContext();
+    const {messages: wcMsgs, fetchMessages: fthWldMsg, sendMessage: sndWldMsg} = useWorldChatContext();
     const {currTeamId} = usePlayContext();
     const [initFtch, setInitFtch] = useState<boolean>(false);
     const idToChk: string = title === "Team Chat" ? currTeamId : gameId;
-    const messages: Array<MsgTyp> = title === "Team Chat" ? tmMsgs : [];
+    const messages: Array<MsgTyp> = title === "Team Chat" ? tmMsgs : wcMsgs;
 
     useEffect(() => {
       if (!idToChk.length) return;
       if (initFtch) return;
       setInitFtch(true);
-      fetchMessages!();
+      if (title === "Team Chat") fetchMessages!();
+      else fthWldMsg!();
     }, [idToChk, initFtch]);
 
     const submitMessage = (text: string) => {
       if (title === "Team Chat") sendMessage!(text);
+      else sndWldMsg!(text);
     }
 
     return (

@@ -12,6 +12,7 @@ import {LobbyContextProivder} from './contexts/lobby.context';
 import {PlayContextProvider} from './contexts/play.context';
 import {BoardContextProvider} from './contexts/board.context';
 import {TeamChatContextProvider} from './contexts/team-chat.context';
+import {WorldChatContextProvider} from './contexts/world-chat.context';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,7 +24,9 @@ ReactDOM.render(
               <PlayContextProvider>
                 <BoardContextProvider>
                   <TeamChatContextProvider>
-                    <App />
+                    <WorldChatContextProvider>
+                      <App />
+                    </WorldChatContextProvider>
                   </TeamChatContextProvider>
                 </BoardContextProvider>
               </PlayContextProvider>
