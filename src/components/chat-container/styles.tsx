@@ -17,5 +17,6 @@ export const ChatsTitle = styled.span<{ variant: number }>`
 export const MessagesContainer = styled.div`
   padding: 0px 6px;
   overflow-y: scroll;
+  height: 80vh;
   max-height: 80vh;
 `;

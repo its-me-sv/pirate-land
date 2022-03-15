@@ -9,9 +9,6 @@ export const InputContainer = styled.div`
   border-radius: 1px;
   gap: 0.1rem;
   padding: 0.1rem;
-  &:focus-within {
-    border: 2px solid rgb(41, 40, 40);
-  }
 `;
 
 export const InputBox = styled.textarea.attrs({
