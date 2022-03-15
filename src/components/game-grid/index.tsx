@@ -17,7 +17,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
     const {REST_API} = useAPIContext();
     const {socket} = useSocketContext();
     const {id: gameId, currTeam} = useLobbyContext();
-    const {board, clicks, setClicks, fetchBoard, mtyp} = useBoardContext();
+    const {board, clicks, setClicks, fetchBoard, mtyp, setClicked} = useBoardContext();
     const {currPlayer, players, currTeamId , oppTeamId, initial, updateChance} = usePlayContext();
     const {id, setLoading, token} = useUserContext();
     const {fetchScoreboard} = useScoreboardContext();
@@ -25,6 +25,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
     const onBoxClick = async (player: number, typ: number, idx: number) => {
       if (player !== 0) return;
       if (id !== players[currPlayer]) return window.alert(`Not your chance`);
+      setClicked!(true);
       // game started, update on enemy board as well
       if (!initial) {
         try {
@@ -38,6 +39,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
             // update the board for all teams
             fetchBoard!(currTeamId);
             fetchScoreboard!(gameId);
+            console.log("from game-grid");
             socket?.emit("updtBrd", `LOBBY:${gameId}`);
           }
           // update the chance

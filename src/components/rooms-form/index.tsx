@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
@@ -8,6 +8,10 @@ import Button from '../button';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
+import {useBoardContext} from '../../contexts/board.context';
+import {useLobbyContext} from '../../contexts/lobby.context';
+import {usePlayContext} from '../../contexts/play.context';
+import {useScoreboardContext} from '../../contexts/scoreboard.context';
 
 const RoomContainer = styled.div`
   display: flex;
@@ -33,8 +37,19 @@ interface RoomsFormProps {}
 const RoomsForm: React.FC<RoomsFormProps> = () => {
     const {REST_API} = useAPIContext();
     const navigate = useNavigate();
+    const {resetBoard} = useBoardContext();
+    const {resetLobby} = useLobbyContext();
+    const {resetPlay} = usePlayContext();
+    const {resetScoreboard} = useScoreboardContext();
     const {token, setLoading} = useUserContext();
     const [roomId, setRoomId] = useState<string>('');
+
+    useEffect(() => {
+      resetBoard!();
+      resetLobby!();
+      resetPlay!();
+      resetScoreboard!();
+    }, []);
 
     const onJoin = () => {
       if (!roomId.length) return;

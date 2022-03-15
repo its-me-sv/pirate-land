@@ -62,12 +62,12 @@ export const LobbyContextProivder: React.FC = ({children}) => {
     };
 
     const resetLobby = () => {
-      setId(defaultState.id);
-      setCreator(defaultState.creator);
-      setTeam1(defaultState.team1);
-      setTeam2(defaultState.team2);
-      setCurrTeam(defaultState.currTeam);
-      setLaunched(defaultState.launched);
+      setId('');
+      setCreator('');
+      setTeam1([]);
+      setTeam2([]);
+      setCurrTeam('');
+      setLaunched(false);
     };
 
     return (

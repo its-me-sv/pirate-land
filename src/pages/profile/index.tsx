@@ -13,6 +13,10 @@ import BlockLoader from '../../components/block-loader';
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
 import {useSocketContext} from '../../contexts/socket.context';
+import {useBoardContext} from '../../contexts/board.context';
+import {useLobbyContext} from '../../contexts/lobby.context';
+import {usePlayContext} from '../../contexts/play.context';
+import {useScoreboardContext} from '../../contexts/scoreboard.context';
 
 import {
   ProfileContainer,
@@ -27,8 +31,16 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     const {REST_API, SOCKET} = useAPIContext();
     const {setSocket, socket} = useSocketContext();
     const {token, setId, setToken, setLoading, loading, id, currentGame} = useUserContext();
+    const {resetBoard} = useBoardContext();
+    const {resetLobby} = useLobbyContext();
+    const {resetPlay} = usePlayContext();
+    const {resetScoreboard} = useScoreboardContext();
 
     useEffect(() => {
+      resetBoard!();
+      resetLobby!();
+      resetPlay!();
+      resetScoreboard!();
       if (socket) return;
       setSocket!(io(SOCKET, {query: {userId: id}}));
     }, []);

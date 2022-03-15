@@ -11,6 +11,7 @@ import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
 import {useBoardContext} from '../../contexts/board.context';
 import {usePlayContext} from '../../contexts/play.context';
+import {useSocketContext} from '../../contexts/socket.context';
 
 interface PlayFooterProps {
   gameId: string;
@@ -18,7 +19,7 @@ interface PlayFooterProps {
 
 const PlayFooter: React.FC<PlayFooterProps> = ({gameId}) => {
     const {team1, team2, resetScoreboard} = useScoreboardContext();
-    const {resetBoard} = useBoardContext();
+    const {resetBoard, clicked} = useBoardContext();
     const {team1: t1p, team2: t2p, creator, resetLobby} = useLobbyContext();
     const {resetPlay} = usePlayContext();
     const {REST_API} = useAPIContext();
@@ -29,6 +30,7 @@ const PlayFooter: React.FC<PlayFooterProps> = ({gameId}) => {
     useEffect(() => {
       if (!t2p.length || !t1p.length) return;
       if ((team1Score >= (t2p.length * 3) && team1Score > 0) || (team2Score >= (t1p.length * 3) && team2Score > 0)) {
+        if (!clicked) return;
         const headers = {Authorization: `Bearer ${token}`};
         if (creator === id) {
           axios.put(`${REST_API}/games/finish_game`, {gameId}, {headers});
@@ -41,6 +43,12 @@ const PlayFooter: React.FC<PlayFooterProps> = ({gameId}) => {
           resetPlay!();
           resetScoreboard!();
           navigate(`../island/${gameId}/scoreboard`);
+        }).catch(() => {
+          setCurrentGame!("");
+          resetBoard!();
+          resetLobby!();
+          resetPlay!();
+          resetScoreboard!();
         });
       }
     }, [team1Score, team2Score]);

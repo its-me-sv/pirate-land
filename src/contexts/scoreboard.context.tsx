@@ -53,8 +53,8 @@ export const ScoreboardContextProvider: React.FC = ({children}) => {
     };
 
     const resetScoreboard = () => {
-        setTeam1(defaultState.team1);
-        setTeam2(defaultState.team2);
+        setTeam1([]);
+        setTeam2([]);
     };
     
     return (

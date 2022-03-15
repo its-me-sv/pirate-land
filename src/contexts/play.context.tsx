@@ -69,11 +69,11 @@ export const PlayContextProvider: React.FC = ({children}) => {
     };
 
     const resetPlay = () => {
-      setCurrPlayer(defaultState.currPlayer);
-      setPlayers(defaultState.players);
-      setCurrTeamId(defaultState.currTeamId);
-      setOppTeamId(defaultState.oppTeamId);
-      setInitial(defaultState.initial);
+      setCurrPlayer(0);
+      setPlayers([]);
+      setCurrTeamId('');
+      setOppTeamId('');
+      setInitial(false);
     };
 
     return (

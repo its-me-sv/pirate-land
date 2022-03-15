@@ -1,8 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  useParams, 
-  // useNavigate
-} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 import ChatContainer from '../../components/chat-container';
 import IslandHeader from '../../components/island-header';
@@ -34,11 +31,10 @@ const IslandPage: React.FC<IslandPageProps> = () => {
     const {currTeam} = useLobbyContext();
     const {socket} = useSocketContext();
     const {fetchBoard} = useBoardContext();
-    // const navigate = useNavigate();
-    // const takeToScoreboard = () => navigate(`../island/${gameId}/scoreboard`);
 
     useEffect(() => {
       initialPlayFetch!(gameId as string);
+      console.log("from island first ue");
       fetchScoreboard!(gameId as string);
     }, [currTeam]);
 
@@ -55,6 +51,7 @@ const IslandPage: React.FC<IslandPageProps> = () => {
       socket?.on("updtBrd", () => {
         fetchBoard!(currTeamId);
         fetchScoreboard!(gameId as string);
+        console.log("from island for updtBrd");
       });
       socket?.on("updateChance", () =>  {
         updateChance!();

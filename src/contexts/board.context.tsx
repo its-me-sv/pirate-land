@@ -12,14 +12,17 @@ interface BoardContextInterface {
   myTeam: Array<string>;
   fetchBoard?: (boardId: string) => void;
   setClicks?: (val: number) => void;
+  setClicked?: (val: boolean) => void;
   resetBoard?: () => void;
+  clicked: boolean;
 }
 
 const defaultState: BoardContextInterface = {
     mtyp: 0,
     clicks: 0,
     board: [],
-    myTeam: []
+    myTeam: [],
+    clicked: false
 };
 
 export const BoardContext = createContext<BoardContextInterface>(defaultState);
@@ -35,6 +38,7 @@ export const BoardContextProvider: React.FC = ({children}) => {
     const [clicks, setClicks] = useState<number>(defaultState.clicks);
     const [board, setBoard] = useState<Array<number>>(defaultState.board);
     const [myTeam, setMyTeam] = useState<Array<string>>(defaultState.myTeam);
+    const [clicked, setClicked] = useState<boolean>(defaultState.clicked);
     const [wasInitial, setWasInitial] = useState<boolean>(false);
 
     const fetchBoard = (boardId: string) => {
@@ -64,11 +68,12 @@ export const BoardContextProvider: React.FC = ({children}) => {
     };
 
     const resetBoard = () => {
-      setMtyp(defaultState.mtyp);
-      setClicks(defaultState.clicks);
-      setBoard(defaultState.board);
-      setMyTeam(defaultState.myTeam);
+      setMtyp(0);
+      setClicks(0);
+      setBoard([]);
+      setMyTeam([]);
       setWasInitial(false);
+      setClicked(false);
     };
 
     useEffect(() => {
@@ -94,8 +99,8 @@ export const BoardContextProvider: React.FC = ({children}) => {
     return (
         <BoardContext.Provider
           value={{
-            mtyp, clicks, board, myTeam,
-            fetchBoard, setClicks, resetBoard
+            mtyp, clicks, board, myTeam, clicked,
+            fetchBoard, setClicks, resetBoard, setClicked
           }}
         >{children}</BoardContext.Provider>
     );
