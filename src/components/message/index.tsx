@@ -28,8 +28,8 @@ const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
     return (
       <MessageContainer>
         <Sender>{name}</Sender>
-        <Time>{format(id)}</Time>
         <Msg>{message}</Msg>
+        <Time>{format(id)}</Time>
         <VrtclLn />
       </MessageContainer>
     );
