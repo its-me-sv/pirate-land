@@ -12,7 +12,8 @@ import {useBoardContext} from '../../contexts/board.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {usePlayContext} from '../../contexts/play.context';
 import {useScoreboardContext} from '../../contexts/scoreboard.context';
-import { useTeamChatContext } from '../../contexts/team-chat.context';
+import {useTeamChatContext} from '../../contexts/team-chat.context';
+import {useWorldChatContext} from '../../contexts/world-chat.context';
 
 const RoomContainer = styled.div`
   display: flex;
@@ -42,6 +43,7 @@ const RoomsForm: React.FC<RoomsFormProps> = () => {
     const {resetLobby} = useLobbyContext();
     const {resetPlay} = usePlayContext();
     const {resetTeamChat} = useTeamChatContext();
+    const {resetWorldChat} = useWorldChatContext();
     const {resetScoreboard} = useScoreboardContext();
     const {token, setLoading} = useUserContext();
     const [roomId, setRoomId] = useState<string>('');
@@ -52,6 +54,7 @@ const RoomsForm: React.FC<RoomsFormProps> = () => {
       resetPlay!();
       resetScoreboard!();
       resetTeamChat!();
+      resetWorldChat!();
     }, []);
 
     const onJoin = () => {
