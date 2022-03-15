@@ -80,7 +80,13 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     }, []);
 
     useEffect(() => {
-      if (launched === true) navigate(`../island/${gameId}/play`);
+      if (launched === true) {
+        setLoading!(true);
+        setTimeout(() => {
+          setLoading!(false);
+          navigate(`../island/${gameId}/play`);
+        }, 2100);
+      }
     }, [launched]);
 
     const launchGame = () => {
