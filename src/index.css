@@ -39,7 +39,7 @@ code {
 
 /* width */
 *::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.4rem;
 }
 
 /* Track */
@@ -50,8 +50,8 @@ code {
  
 /* Handle */
 *::-webkit-scrollbar-thumb {
-  border-radius: 1rem;
-  background-color: #39342b;
+  border-radius: 0.7rem;
+  background-color: #df661b;
 }
 
 /* Handle on hover */

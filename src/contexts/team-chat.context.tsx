@@ -57,7 +57,6 @@ export const TeamChatContextProvider: React.FC = ({children}) => {
 
     const sendMessage = (msg: string) => {
         if (!msg.length) return;
-        setLoading!(true);
         const reqBody: {chatId: string; msg: string} = {chatId: currTeamId, msg};
         axios.post(`${REST_API}/messages/new`, {...reqBody}, {
           headers: {Authorization: `Bearer ${token}`,}
@@ -65,8 +64,7 @@ export const TeamChatContextProvider: React.FC = ({children}) => {
             const msgToAdd = {...data};
             msgToAdd.id = getDateObj(msgToAdd.id).toISOString();
             setMessages([msgToAdd, ...messages]);
-            setLoading!(false);
-        }).catch(() => setLoading!(false));
+        }).catch(() => ({}));
     };
 
     return (
