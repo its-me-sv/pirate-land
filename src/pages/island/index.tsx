@@ -12,6 +12,7 @@ import {usePlayContext} from '../../contexts/play.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useSocketContext} from '../../contexts/socket.context';
 import {useBoardContext} from '../../contexts/board.context';
+import {playSound, stopSound} from '../../utils/play-sound';
 
 import {
   IslandContainer,
@@ -33,8 +34,12 @@ const IslandPage: React.FC<IslandPageProps> = () => {
     const {fetchBoard} = useBoardContext();
 
     useEffect(() => {
+      playSound("bg");
+      return () => stopSound("bg");
+    }, []);
+
+    useEffect(() => {
       initialPlayFetch!(gameId as string);
-      console.log("from island first ue");
       fetchScoreboard!(gameId as string);
     }, [currTeam]);
 
@@ -50,13 +55,11 @@ const IslandPage: React.FC<IslandPageProps> = () => {
 
     useEffect(() => {
       socket?.on("updateBoard", (boardId) => {
-        console.log("here 2");
         fetchBoard!(boardId);
       });
       socket?.on("updtBrd", () => {
         fetchBoard!(currTeamId);
         fetchScoreboard!(gameId as string);
-        console.log("from island for updtBrd");
       });
       socket?.on("updateChance", () =>  {
         updateChance!();

@@ -77,7 +77,6 @@ export const BoardContextProvider: React.FC = ({children}) => {
     };
 
     useEffect(() => {
-        console.log("here 1");
         if (!currTeamId.length) return;
         if (board.length) return;
         fetchBoard(currTeamId);

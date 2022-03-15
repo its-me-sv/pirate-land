@@ -61,7 +61,6 @@ export const PlayContextProvider: React.FC = ({children}) => {
         const {data} = await axios.post(`${REST_API}/games/get_chance`, {gameId}, {
           headers: {Authorization: `Bearer ${token}`,}
         });
-        console.log(data);
         setCurrPlayer(+data.chance_off);
         setInitial(data.initial);
         setLoading!(false);

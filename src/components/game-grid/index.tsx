@@ -11,6 +11,8 @@ import {useSocketContext} from '../../contexts/socket.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useScoreboardContext} from '../../contexts/scoreboard.context';
 
+import {playSound} from '../../utils/play-sound';
+
 interface GameGridProps {}
 
 const GameGrid: React.FC<GameGridProps> = () => {
@@ -26,6 +28,7 @@ const GameGrid: React.FC<GameGridProps> = () => {
       if (player !== 0) return;
       if (id !== players[currPlayer]) return window.alert(`Not your chance`);
       setClicked!(true);
+      playSound("pirate", false);
       // game started, update on enemy board as well
       if (!initial) {
         try {
@@ -39,7 +42,6 @@ const GameGrid: React.FC<GameGridProps> = () => {
             // update the board for all teams
             fetchBoard!(currTeamId);
             fetchScoreboard!(gameId);
-            console.log("from game-grid");
             socket?.emit("updtBrd", `LOBBY:${gameId}`);
           }
           // update the chance

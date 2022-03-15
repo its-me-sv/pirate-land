@@ -10,6 +10,7 @@ import {useUserContext} from '../../contexts/user.context';
 import {useAPIContext} from '../../contexts/api.context';
 import {useLobbyContext} from '../../contexts/lobby.context';
 import {useSocketContext} from '../../contexts/socket.context';
+import {playSound, stopSound} from '../../utils/play-sound';
 
 import {
   LobbyContainer,
@@ -46,7 +47,6 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     const leaveGame = async () => {
       try {
         if (currTeam.length > 0) {
-          console.log("here");
           await axios.put(`${REST_API}/games/leave_team`, {gameId, teamNo: currTeam}, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -65,8 +65,10 @@ const LobbyPage: React.FC<LobbyPageProps> = () => {
     };
 
     useEffect(() => {
+      playSound("bg");
       setCurrentGame(gameId as string | null);
       fetchGameForLobby!(gameId as string);
+      return () => stopSound("bg");
     }, []);
 
     useEffect(() => {

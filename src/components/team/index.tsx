@@ -48,7 +48,6 @@ const Team: React.FC<TeamProps> = ({teamName, variant}) => {
     setLoading!(true);
     try {
       if (currTeam.length > 0) {
-        console.log("here");
         await axios.put(`${REST_API}/games/leave_team`, {gameId, teamNo: currTeam}, {
           headers: {
             Authorization: `Bearer ${token}`,

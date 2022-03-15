@@ -27,6 +27,7 @@ const Pricing: React.FC<PricingProps> = () => {
               <Plan>✔️ Island Creation</Plan>
               <Plan>❌ No Advertisements</Plan>
               <Plan>❌ Custom Player Image</Plan>
+              <Plan>❌ Voice Chat</Plan>
               <Button
                 variant={2}
                 text="Subscribe @ 0$/yr"
@@ -41,6 +42,7 @@ const Pricing: React.FC<PricingProps> = () => {
               <Plan>✔️ Island Creation</Plan>
               <Plan>✔️ No Advertisements</Plan>
               <Plan>✔️ Custom Player Image</Plan>
+              <Plan>✔️ Voice Chat</Plan>
               <Button
                 variant={2}
                 text="Subscribe @ 5$/yr"
@@ -55,6 +57,7 @@ const Pricing: React.FC<PricingProps> = () => {
               <Plan>✔️ Island Creation</Plan>
               <Plan>✔️ No Advertisements</Plan>
               <Plan>❌ Custom Player Image</Plan>
+              <Plan>❌ Voice Chat</Plan>
               <Button
                 variant={2}
                 text="Subscribe @ 3$/yr"
