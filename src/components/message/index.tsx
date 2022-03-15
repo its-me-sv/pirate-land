@@ -3,7 +3,6 @@ import {format} from 'timeago.js';
 import axios from 'axios';
 
 import {MessageContainer, Sender, Time, Msg, VrtclLn} from './styles';
-import {getDateObj} from '../../utils/timeuuid-to-date';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
@@ -20,14 +19,17 @@ const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
     const [name, setName] = useState<string>('-------');
     useEffect(() => {
       axios.post(`${REST_API}/users/name`, {userId: sender_id}, {
-        headers: {Authorization: `Bearer ${token}`},
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Cache-Control": "no-cache"
+        },
       }).then(({data}) => setName(data.name))
       .catch(console.log);
     }, []);
     
     return (
       <MessageContainer>
-        <Sender>{name}</Sender>
+        {/* <Sender>{name}</Sender> */}
         <Msg>{message}</Msg>
         <Time>{format(id)}</Time>
         <VrtclLn />

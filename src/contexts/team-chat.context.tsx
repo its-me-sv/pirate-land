@@ -71,8 +71,10 @@ export const TeamChatContextProvider: React.FC = ({children}) => {
     };
 
     useEffect(() => {
-        socket?.on("updtTmChat", obj => setMessages([obj, ...messages]));
-    }, [messages]);
+        socket?.on("updtTmChat", obj => {
+            setMessages([obj, ...messages]);
+        });
+    }, [messages, socket, setMessages]);
 
     return (
         <TeamChatContext.Provider value={{
