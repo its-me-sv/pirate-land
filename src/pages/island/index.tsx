@@ -63,12 +63,12 @@ const IslandPage: React.FC<IslandPageProps> = () => {
         {loading && <BlockLoader />}
         <IslandHeader gameId={gameId} />
         <GameArea>
-          <ChatContainer title="Team Chat" variant={1} />
+          <ChatContainer title="Team Chat" variant={1} gameId={gameId as string} />
           <BoardContainer>
             <GameGrid />
             <PlayFooter gameId={gameId as string} />
           </BoardContainer>
-          <ChatContainer title="World Chat" variant={2} />
+          <ChatContainer title="World Chat" variant={2} gameId={gameId as string} />
         </GameArea>
       </IslandContainer>
     );

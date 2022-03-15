@@ -1,39 +1,35 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, {useState, useEffect} from 'react';
+import {format} from 'timeago.js';
+import axios from 'axios';
 
-const MessageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import {MessageContainer, Sender, Time, Msg, VrtclLn} from './styles';
+import {getDateObj} from '../../utils/timeuuid-to-date';
 
-const Sender = styled.span`
-  font-family: calibri;
-  font-size: 1.4rem;
-`;
+import {useAPIContext} from '../../contexts/api.context';
+import {useUserContext} from '../../contexts/user.context';
 
-const Time = styled.span`
-  font-family: bahnschrift;
-  font-size: 0.7rem;
-`;
+interface MessageProps {
+  id: string;
+  message: string;
+  sender_id: string;
+}
 
-const Msg = styled.span`
-  font-family: calibri;
-  font-size: 1rem;
-`;
-
-const VrtclLn = styled.span`
-  border-bottom: 1px solid black;
-  opacity: 0.7;
-`;
-
-interface MessageProps {}
-
-const Message: React.FC<MessageProps> = () => {
+const Message: React.FC<MessageProps> = ({id, message, sender_id}) => {
+    const {REST_API} = useAPIContext();
+    const {token} = useUserContext();
+    const [name, setName] = useState<string>('-------');
+    useEffect(() => {
+      axios.post(`${REST_API}/users/name`, {userId: sender_id}, {
+        headers: {Authorization: `Bearer ${token}`},
+      }).then(({data}) => setName(data.name))
+      .catch(console.log);
+    }, []);
+    
     return (
       <MessageContainer>
-        <Sender>Suraj</Sender>
-        <Time>2 mins ago</Time>
-        <Msg>Hey there guys place it there and it must work excellent</Msg>
+        <Sender>{name}</Sender>
+        <Time>{format(id)}</Time>
+        <Msg>{message}</Msg>
         <VrtclLn />
       </MessageContainer>
     );

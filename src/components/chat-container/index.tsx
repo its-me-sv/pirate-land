@@ -1,44 +1,46 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, {useEffect, useState} from 'react';
 
 import Message from '../message';
 import MessageInput from '../message-input';
 
-const ChatsContainer = styled.div<{variant: number}>`
-  border: 3px solid ${(props) => (props.variant === 1 ? `#2e66df` : `#fe0002`)};
-  border-radius: 0.3rem;
-  display: flex;
-  flex-direction: column;
-`;
+import {useTeamChatContext, Message as MsgTyp} from '../../contexts/team-chat.context';
+import {usePlayContext} from '../../contexts/play.context';
 
-const ChatsTitle = styled.span<{variant: number}>`
-  font-family: calibri;
-  font-size: 3.6vh;
-  color: ${(props) => (props.variant === 1 ? `#2e66df` : `#fe0002`)};
-  text-align: center;
-`;
-
-const MessagesContainer = styled.div`
-  padding: 0px 6px;
-  overflow-y: scroll;
-  max-height: 80vh;
-`;
+import {ChatsContainer, ChatsTitle, MessagesContainer} from './styles';
 
 interface ChatContainerProps {
     title: string;
     variant: number;
+    gameId: string;
 }
 
-const ChatContainer: React.FC<ChatContainerProps> = ({title, variant}) => {
+const ChatContainer: React.FC<ChatContainerProps> = ({title, variant, gameId}) => {
+    const {messages: tmMsgs, fetchMessages, sendMessage} = useTeamChatContext();
+    const {currTeamId} = usePlayContext();
+    const [initFtch, setInitFtch] = useState<boolean>(false);
+    const idToChk: string = title === "Team Chat" ? currTeamId : gameId;
+    const messages: Array<MsgTyp> = title === "Team Chat" ? tmMsgs : [];
+
+    useEffect(() => {
+      if (!idToChk.length) return;
+      if (initFtch) return;
+      setInitFtch(true);
+      fetchMessages!();
+    }, [idToChk, initFtch]);
+
+    const submitMessage = (text: string) => {
+      if (title === "Team Chat") sendMessage!(text);
+    }
+
     return (
       <ChatsContainer variant={variant}>
         <ChatsTitle variant={variant}>{title}</ChatsTitle>
         <MessagesContainer>
-          {[...Array(84)].map((_, idx) => (
-            <Message key={idx} />
+          {messages.map((data, idx) => (
+            <Message key={idx} {...data} />
           ))}
         </MessagesContainer>
-        <MessageInput />
+        <MessageInput onPress={submitMessage} />
       </ChatsContainer>
     );
 };
