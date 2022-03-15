@@ -32,7 +32,7 @@ const HomePage: React.FC<HomePageProps> = () => {
     return (
         <HomeContainer>
             {loading && <BlockLoader />}
-            {showPricing &&<Pricing />}
+            {showPricing && <Pricing />}
             <PricingSection>
                 <Button 
                   text={`${showPricing ? 'Hide' : 'Show'} Pricing`} 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {io} from 'socket.io-client';
 import {useNavigate} from 'react-router-dom';
@@ -9,6 +9,8 @@ import RoomsForm from '../../components/rooms-form';
 import UpdateForm from '../../components/update-form';
 import GamesRecord from "../../components/games-record";
 import BlockLoader from '../../components/block-loader';
+import Pricing from '../../components/pricing';
+import {PricingSection} from '../../components/pricing/styles';
 
 import {useAPIContext} from '../../contexts/api.context';
 import {useUserContext} from '../../contexts/user.context';
@@ -35,6 +37,8 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     const {resetLobby} = useLobbyContext();
     const {resetPlay} = usePlayContext();
     const {resetScoreboard} = useScoreboardContext();
+
+    const [showPricing, setShowPricing] = useState<boolean>(false);
 
     useEffect(() => {
       resetBoard!();
@@ -69,6 +73,13 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
     return (
       <ProfileContainer>
         {loading && <BlockLoader />}
+        {showPricing && <Pricing />}
+        <PricingSection>
+          <Button
+            text={`${showPricing ? "Hide" : "Show"} Pricing`}
+            onPress={() => setShowPricing(!showPricing)}
+          />
+        </PricingSection>
         <Title>Pirate Land</Title>
         <ContentContainer>
           <RoomsForm />
