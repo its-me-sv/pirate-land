@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pirate-land/static/css/main.177d2f80.css",
+    "main.js": "/pirate-land/static/js/main.436e1f35.js",
+    "static/media/calibri.ttf": "/pirate-land/static/media/calibri.ab3ba6d39bf555222bd4.ttf",
+    "static/media/f3.png": "/pirate-land/static/media/f3.1f68b904015704efeb64.png",
+    "static/media/bahnschrift.ttf": "/pirate-land/static/media/bahnschrift.23b347dac5478c8b4500.ttf",
+    "static/media/face-2.png": "/pirate-land/static/media/face-2.1d7900921663b5090c6c.png",
+    "static/media/face-1.png": "/pirate-land/static/media/face-1.8599ac25a70f97dc69f3.png",
+    "static/media/face-4.png": "/pirate-land/static/media/face-4.3206c2ff9296a2c34b07.png",
+    "static/media/face-3.png": "/pirate-land/static/media/face-3.cc67efc0ca5cd11714e1.png",
+    "static/media/PiratesBay.ttf": "/pirate-land/static/media/PiratesBay.b1fcd6dfc7aaa370db34.ttf",
+    "static/media/PirateKids.otf": "/pirate-land/static/media/PirateKids.e8c2c1821cb739aeca12.otf",
+    "static/media/send.png": "/pirate-land/static/media/send.eafcc2c70b20b4c5d9a1.png",
+    "index.html": "/pirate-land/index.html",
+    "main.177d2f80.css.map": "/pirate-land/static/css/main.177d2f80.css.map",
+    "main.436e1f35.js.map": "/pirate-land/static/js/main.436e1f35.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.177d2f80.css",
+    "static/js/main.436e1f35.js"
+  ]
+}
