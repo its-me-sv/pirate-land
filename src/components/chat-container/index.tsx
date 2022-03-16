@@ -7,7 +7,7 @@ import {useTeamChatContext, Message as MsgTyp} from '../../contexts/team-chat.co
 import {useWorldChatContext} from '../../contexts/world-chat.context';
 import {usePlayContext} from '../../contexts/play.context';
 
-import {ChatsContainer, ChatsTitle, MessagesContainer} from './styles';
+import {ChatsContainer, ChatsTitle, LoadMore, MessagesContainer} from './styles';
 
 interface ChatContainerProps {
     title: string;
@@ -16,7 +16,7 @@ interface ChatContainerProps {
 }
 
 const ChatContainer: React.FC<ChatContainerProps> = ({title, variant, gameId}) => {
-    const {messages: tmMsgs, fetchMessages, sendMessage} = useTeamChatContext();
+    const {messages: tmMsgs, fetchMessages, sendMessage, page} = useTeamChatContext();
     const {messages: wcMsgs, fetchMessages: fthWldMsg, sendMessage: sndWldMsg} = useWorldChatContext();
     const {currTeamId} = usePlayContext();
     const [initFtch, setInitFtch] = useState<boolean>(false);
@@ -31,10 +31,14 @@ const ChatContainer: React.FC<ChatContainerProps> = ({title, variant, gameId}) =
       else fthWldMsg!();
     }, [idToChk, initFtch]);
 
+    const toFetchMessages = title === "Team Chat" ? fetchMessages : fthWldMsg;
+
     const submitMessage = (text: string) => {
       if (title === "Team Chat") sendMessage!(text);
       else sndWldMsg!(text);
     }
+
+    console.log({page});
 
     return (
       <ChatsContainer variant={variant}>
@@ -43,6 +47,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({title, variant, gameId}) =
           {messages.map((data, idx) => (
             <Message key={idx} {...data} />
           ))}
+          <LoadMore onClick={() => toFetchMessages!()}>LOAD MORE</LoadMore>
         </MessagesContainer>
         <MessageInput onPress={submitMessage} />
       </ChatsContainer>

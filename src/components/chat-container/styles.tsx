@@ -20,3 +20,11 @@ export const MessagesContainer = styled.div`
   height: 80vh;
   max-height: 80vh;
 `;
+
+export const LoadMore = styled.span`
+  font-family: calibri;
+  font-size: 0.8rem;
+  border: 1.2px dashed black;
+  border-radius: 3px;
+  cursor: pointer;
+`;
