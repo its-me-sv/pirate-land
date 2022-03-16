@@ -40,7 +40,7 @@ const GamesRecord: React.FC<GamesRecordProps> = () => {
         <ColTitle>Games Record</ColTitle>
         <GamesHolder>
           {final.length > 0 ? (
-            final.map((game, idx) => <RecordItem key={idx} id={game} />)
+            final.reverse().map((game, idx) => <RecordItem key={idx} id={game} />)
           ) : (
             <EndBar>No games played yet</EndBar>
           )}
