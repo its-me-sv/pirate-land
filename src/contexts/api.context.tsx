@@ -6,8 +6,8 @@ interface APIContextInterface {
 }
 
 const defaultState: APIContextInterface = {
-  REST_API: "http://192.168.29.97:5000/api",
-  SOCKET: "http://192.168.29.97:5000",
+  REST_API: "https://pirate-land-server.herokuapp.com/api",
+  SOCKET: "https://pirate-land-server.herokuapp.com",
 };
 
 export const APIContext = createContext<APIContextInterface>(defaultState);
