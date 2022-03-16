@@ -80,7 +80,6 @@ const GameGrid: React.FC<GameGridProps> = () => {
         else socket?.emit("updateBoard", `LOBBY:${gameId}`);
         setClicks!(clicks - 1);
         setLoading!(false);
-        window.alert(`${clicks - 1} clicks left`);
       } catch (err) {
         setLoading!(false);
       }
